@@ -82,6 +82,9 @@ type Repo interface {
 	DeleteDraft(ctx context.Context, query *models.Draft) error
 	GetDraft(ctx context.Context, query *models.Draft) (*models.Draft, error)
 	GetDrafts(ctx context.Context, query *models.Draft) ([]*models.Draft, error)
+
+	CreateOutbox(ctx context.Context, data *models.Outbox) error
+	UpdateOutbox(ctx context.Context, data *models.Outbox) error
 }
 
 type repo struct {

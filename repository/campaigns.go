@@ -69,3 +69,13 @@ func (r *repo) GetDrafts(ctx context.Context, query *models.Draft) ([]*models.Dr
 	err := r.DB.Where(query).Find(&data).Error
 	return data, err
 }
+
+// CreateOutbox ...
+func (r *repo) CreateOutbox(ctx context.Context, data *models.Outbox) error {
+	return r.DB.Create(data).Error
+}
+
+// UpdateOutbox ...
+func (r *repo) UpdateOutbox(ctx context.Context, data *models.Outbox) error {
+	return r.DB.Save(data).Error
+}
