@@ -85,6 +85,9 @@ type Repo interface {
 
 	CreateOutbox(ctx context.Context, data *models.Outbox) error
 	UpdateOutbox(ctx context.Context, data *models.Outbox) error
+	DeleteOutbox(ctx context.Context, query *models.Outbox) error
+	GetOutbox(ctx context.Context, query *models.Outbox) (*models.Outbox, error)
+	GetOutboxes(ctx context.Context, query *models.Outbox) ([]*models.Outbox, error)
 }
 
 type repo struct {
