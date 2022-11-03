@@ -79,3 +79,25 @@ func (r *repo) CreateOutbox(ctx context.Context, data *models.Outbox) error {
 func (r *repo) UpdateOutbox(ctx context.Context, data *models.Outbox) error {
 	return r.DB.Save(data).Error
 }
+
+// DeleteOutbox ...
+func (r *repo) DeleteOutbox(ctx context.Context, query *models.Outbox) error {
+	return r.DB.Where(query).Delete(&models.Outbox{}).Error
+}
+
+// GetOutbox ...
+func (r *repo) GetOutbox(ctx context.Context, query *models.Outbox) (*models.Outbox, error) {
+	var data models.Outbox
+	err := r.DB.Where(query).First(&data).Error
+	if err != nil {
+		return nil, err
+	}
+	return &data, nil
+}
+
+// GetOutboxes ...
+func (r *repo) GetOutboxes(ctx context.Context, query *models.Outbox) ([]*models.Outbox, error) {
+	var data []*models.Outbox
+	err := r.DB.Where(query).Find(&data).Error
+	return data, err
+}

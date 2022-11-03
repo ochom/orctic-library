@@ -10,8 +10,8 @@ type SenderNameType string
 
 // SenderNameType ...
 const (
-	Transactional SenderNameType = "transactional"
-	Promotional   SenderNameType = "promotional"
+	Transactional SenderNameType = "Transactional"
+	Promotional   SenderNameType = "Promotional"
 )
 
 // String ...
@@ -40,8 +40,8 @@ type OfferType string
 
 // OfferType ...
 const (
-	OnDemand     OfferType = "on-demand"
-	Subscription OfferType = "subscription" // recurring
+	OnDemand     OfferType = "On-demand"
+	Subscription OfferType = "Subscription" // recurring
 )
 
 // String ...
@@ -70,10 +70,10 @@ type CampaignType string
 
 const (
 	// Premium ...
-	Premium CampaignType = "premium"
+	Premium CampaignType = "Premium"
 
 	// Bulk ...
-	Bulk CampaignType = "bulk"
+	Bulk CampaignType = "Bulk"
 )
 
 // String ...
@@ -102,8 +102,9 @@ type CampaignMessageType string
 
 // CampaignMessageType ...
 const (
-	Personalized CampaignMessageType = "personalized"
-	General      CampaignMessageType = "general"
+	Personalized CampaignMessageType = "Personalized"
+	General      CampaignMessageType = "General"
+	Instant      CampaignMessageType = "Instant"
 )
 
 // String ...
