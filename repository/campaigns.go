@@ -34,7 +34,7 @@ func (r *repo) GetCampaign(ctx context.Context, query *models.Campaign) (*models
 // GetCampaigns ...
 func (r *repo) GetCampaigns(ctx context.Context, query *models.Campaign) ([]*models.Campaign, error) {
 	var data []*models.Campaign
-	err := r.DB.Where(query).Order("created_at asc").Find(&data).Error
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }
 
@@ -66,7 +66,7 @@ func (r *repo) GetDraft(ctx context.Context, query *models.Draft) (*models.Draft
 // GetDrafts ...
 func (r *repo) GetDrafts(ctx context.Context, query *models.Draft) ([]*models.Draft, error) {
 	var data []*models.Draft
-	err := r.DB.Where(query).Order("created_at asc").Find(&data).Error
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }
 
@@ -98,6 +98,6 @@ func (r *repo) GetOutbox(ctx context.Context, query *models.Outbox) (*models.Out
 // GetOutboxes ...
 func (r *repo) GetOutboxes(ctx context.Context, query *models.Outbox) ([]*models.Outbox, error) {
 	var data []*models.Outbox
-	err := r.DB.Where(query).Order("created_at asc").Find(&data).Error
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }

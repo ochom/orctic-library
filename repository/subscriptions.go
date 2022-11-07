@@ -25,6 +25,6 @@ func (r *repo) GetSubscriber(ctx context.Context, query *models.Subscriber) (*mo
 
 func (r *repo) GetSubscribers(ctx context.Context, query *models.Subscriber) ([]*models.Subscriber, error) {
 	var data []*models.Subscriber
-	err := r.DB.Where(query).Order("created_at asc").Find(&data).Error
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }
