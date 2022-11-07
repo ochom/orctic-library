@@ -34,6 +34,6 @@ func (r *repo) GetOrganization(ctx context.Context, query *models.Organization) 
 // GetOrganizations ...
 func (r *repo) GetOrganizations(ctx context.Context, query *models.Organization) ([]*models.Organization, error) {
 	var data []*models.Organization
-	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
+	err := r.DB.Where(query).Order("created_at asc").Find(&data).Error
 	return data, err
 }
