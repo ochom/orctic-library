@@ -34,7 +34,7 @@ func (r *repo) GetContactGroup(ctx context.Context, query *models.ContactGroup) 
 // GetContactGroups ...
 func (r *repo) GetContactGroups(ctx context.Context, query *models.ContactGroup) ([]*models.ContactGroup, error) {
 	var data []*models.ContactGroup
-	err := r.DB.Where(query).Find(&data).Error
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }
 
@@ -66,6 +66,6 @@ func (r *repo) GetContact(ctx context.Context, query *models.Contact) (*models.C
 // GetContacts ...
 func (r *repo) GetContacts(ctx context.Context, query *models.Contact) ([]*models.Contact, error) {
 	var data []*models.Contact
-	err := r.DB.Where(query).Find(&data).Error
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }

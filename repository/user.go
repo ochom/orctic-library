@@ -34,6 +34,6 @@ func (r *repo) GetUser(ctx context.Context, query *models.User) (*models.User, e
 // GetUsers ...
 func (r *repo) GetUsers(ctx context.Context, query *models.User) ([]*models.User, error) {
 	var data []*models.User
-	err := r.DB.Where(query).Find(&data).Error
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }

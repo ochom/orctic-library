@@ -34,7 +34,7 @@ func (r *repo) GetSenderName(ctx context.Context, query *models.SenderName) (*mo
 // GetSenderNames ...
 func (r *repo) GetSenderNames(ctx context.Context, query *models.SenderName) ([]*models.SenderName, error) {
 	var data []*models.SenderName
-	err := r.DB.Where(query).Find(&data).Error
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }
 
@@ -66,6 +66,6 @@ func (r *repo) GetOffer(ctx context.Context, query *models.Offer) (*models.Offer
 // GetOffers ...
 func (r *repo) GetOffers(ctx context.Context, query *models.Offer) ([]*models.Offer, error) {
 	var data []*models.Offer
-	err := r.DB.Where(query).Find(&data).Error
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }
