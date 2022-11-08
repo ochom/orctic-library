@@ -41,8 +41,8 @@ type User struct {
 
 // UserOrganization ...
 type UserOrganization struct {
-	UserID         string `json:"userID" gorm:"primaryKey"`
-	OrganizationID string `json:"organizationID" gorm:"primaryKey"`
+	UserID         string `json:"userID"`
+	OrganizationID string `json:"organizationID"`
 }
 
 // ContactGroup ...
@@ -103,7 +103,7 @@ type Offer struct {
 
 // OrganizationOffer ...
 type OrganizationOffer struct {
-	ID             string `json:"id" gorm:"primaryKey"`
+	ID             string `json:"id"`
 	OrganizationID string `json:"organizationID"`
 	OfferID        string `json:"offerID"`
 }
