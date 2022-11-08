@@ -22,8 +22,9 @@ type Organization struct {
 	ID       string `json:"id" gorm:"primaryKey"`
 	Name     string `json:"name"`
 	IsActive bool   `json:"isActive"`
-	Owner    User   `json:"owner" gorm:"-"` // this is a virtual field
+	OwnerID  string `json:"ownerID"`
 	BaseModel
+	Owner User `json:"owner" gorm:"-"` // this is a virtual field
 }
 
 // User ...
