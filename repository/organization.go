@@ -48,16 +48,16 @@ func (r *repo) RemoveUserFromOrganization(ctx context.Context, data *models.User
 	return r.DB.Delete(data).Error
 }
 
-// GetOrganizationUsers ...
-func (r *repo) GetOrganizationUsers(ctx context.Context, query *models.UserOrganization) ([]*models.User, error) {
+// GetUsersInOrganization ...
+func (r *repo) GetUsersInOrganization(ctx context.Context, organizationID string) ([]*models.User, error) {
 	var data []*models.User
-	err := r.DB.Where(query).Find(&data).Error
+	err := r.DB.Model(&models.User{}).Joins("JOIN user_organizations ON users.id = user_organizations.user_id").Where("user_organizations.organization_id = ?", organizationID).Find(&data).Error
 	return data, err
 }
 
-// GetUsersOrganizations ...
-func (r *repo) GetUsersOrganizations(ctx context.Context, query *models.UserOrganization) ([]*models.Organization, error) {
+// GetOrganizationsForUser ...
+func (r *repo) GetOrganizationsForUser(ctx context.Context, userID string) ([]*models.Organization, error) {
 	var data []*models.Organization
-	err := r.DB.Where(query).Find(&data).Error
+	err := r.DB.Model(&models.Organization{}).Joins("JOIN user_organizations ON organizations.id = user_organizations.organization_id").Where("user_organizations.user_id = ?", userID).Find(&data).Error
 	return data, err
 }
