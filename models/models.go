@@ -6,62 +6,60 @@ import (
 	"gorm.io/gorm"
 )
 
+// BaseModel ...
+type BaseModel struct {
+	CreatedByID string `json:"createdByID"`
+	UpdatedByID string `json:"updatedByID"`
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
+	DeletedAt   gorm.DeletedAt `gorm:"index"`
+	CreatedBy   User           `json:"createdBy" gorm:"-"` // this is a virtual field
+	UpdatedBy   User           `json:"updatedBy" gorm:"-"` // this is a virtual field
+}
+
 // Organization ...
 type Organization struct {
-	ID        string         `json:"id" gorm:"primaryKey"`
-	Name      string         `json:"name"`
-	IsActive  bool           `json:"isActive"`
-	CreatedBy string         `json:"createdBy"`
-	UpdatedBy string         `json:"updatedBy"`
-	DeletedBy string         `json:"deletedBy"`
-	CreatedAt time.Time      `json:"createdAt"`
-	UpdatedAt time.Time      `json:"updatedAt"`
-	DeletedAt gorm.DeletedAt `json:"deletedAt"`
+	ID       string `json:"id" gorm:"primaryKey"`
+	Name     string `json:"name"`
+	IsActive bool   `json:"isActive"`
+	BaseModel
 }
 
 // User ...
 type User struct {
-	ID             string         `json:"id" gorm:"primaryKey"`
-	OrganizationID string         `json:"organizationID"`
-	Username       string         `json:"username"`
-	Mobile         string         `json:"mobile"`
-	Email          string         `json:"email"`
-	Password       string         `json:"-"`
-	OTP            string         `json:"-"`
-	IsVerified     bool           `json:"isVerified"`
-	IsAdmin        bool           `json:"isAdmin"`
-	LastLogin      time.Time      `json:"lastLogin"`
-	CreatedBy      string         `json:"createdBy"`
-	UpdatedBy      string         `json:"updatedBy"`
-	DeletedBy      string         `json:"deletedBy"`
-	CreatedAt      time.Time      `json:"createdAt"`
-	UpdatedAt      time.Time      `json:"updatedAt"`
-	DeletedAt      gorm.DeletedAt `json:"deletedAt"`
+	ID             string    `json:"id" gorm:"primaryKey"`
+	OrganizationID string    `json:"organizationID"`
+	Username       string    `json:"username"`
+	Mobile         string    `json:"mobile"`
+	Email          string    `json:"email"`
+	Password       string    `json:"-"`
+	OTP            string    `json:"-"`
+	IsVerified     bool      `json:"isVerified"`
+	IsAdmin        bool      `json:"isAdmin"`
+	LastLogin      time.Time `json:"lastLogin"`
+}
+
+// UserOrganization ...
+type UserOrganization struct {
+	UserID         string `json:"userID" gorm:"primaryKey"`
+	OrganizationID string `json:"organizationID" gorm:"primaryKey"`
 }
 
 // ContactGroup ...
 type ContactGroup struct {
-	ID             string         `json:"id"`
-	Name           string         `json:"name"`
-	Description    string         `json:"description"`
-	OrganizationID string         `json:"organizationID"`
-	CreatedBy      string         `json:"createdBy"`
-	UpdatedBy      string         `json:"updatedBy"`
-	DeletedBy      string         `json:"deletedBy"`
-	CreatedAt      time.Time      `json:"createdAt"`
-	UpdatedAt      time.Time      `json:"updatedAt"`
-	DeletedAt      gorm.DeletedAt `json:"deletedAt"`
-	TotalContacts  int64          `json:"totalContacts" gorm:"-"`
+	ID             string `json:"id"`
+	Name           string `json:"name"`
+	Description    string `json:"description"`
+	OrganizationID string `json:"organizationID"`
+	BaseModel
 }
 
 // Contact ...
 type Contact struct {
-	ID        string         `json:"id"`
-	GroupID   string         `json:"groupID"`
-	Mobile    string         `json:"mobile"`
-	CreatedAt time.Time      `json:"createdAt"`
-	UpdatedAt time.Time      `json:"updatedAt"`
-	DeletedAt gorm.DeletedAt `json:"deletedAt"`
+	ID      string `json:"id"`
+	GroupID string `json:"groupID"`
+	Mobile  string `json:"mobile"`
+	BaseModel
 }
 
 // Subscriber ...
@@ -78,33 +76,36 @@ type Subscriber struct {
 // SenderName ...
 type SenderName struct {
 	ID             string         `json:"id" gorm:"primaryKey"`
-	OrganizationID string         `json:"organizationID"`
 	Name           string         `json:"name" gorm:"uniqueIndex"`
 	Description    string         `json:"description"`
 	SenderNameType SenderNameType `json:"senderNameType"`
-	CreatedBy      string         `json:"createdBy"`
-	UpdatedBy      string         `json:"updatedBy"`
-	DeletedBy      string         `json:"deletedBy"`
-	CreatedAt      time.Time      `json:"createdAt"`
-	UpdatedAt      time.Time      `json:"updatedAt"`
-	DeletedAt      gorm.DeletedAt `json:"deletedAt"`
+	BaseModel
+}
+
+// OrganizationSenderName ...
+type OrganizationSenderName struct {
+	ID             string `json:"id" gorm:"primaryKey"`
+	OrganizationID string `json:"organizationID"`
+	SenderNameID   string `json:"senderNameID"`
 }
 
 // Offer ...
 type Offer struct {
-	ID             string         `json:"id"`
-	OrganizationID string         `json:"organizationID"`
-	Name           string         `json:"name" gorm:"uniqueIndex"`
-	Description    string         `json:"description"`
-	ShortCode      string         `json:"shortcode"`
-	OfferCode      string         `json:"offerCode"`
-	OfferType      OfferType      `json:"type"`
-	CreatedBy      string         `json:"createdBy"`
-	UpdatedBy      string         `json:"updatedBy"`
-	DeletedBy      string         `json:"deletedBy"`
-	CreatedAt      time.Time      `json:"createdAt"`
-	UpdatedAt      time.Time      `json:"updatedAt"`
-	DeletedAt      gorm.DeletedAt `json:"deletedAt"`
+	ID             string    `json:"id"`
+	OrganizationID string    `json:"organizationID"`
+	Name           string    `json:"name" gorm:"uniqueIndex"`
+	Description    string    `json:"description"`
+	ShortCode      string    `json:"shortcode"`
+	OfferCode      string    `json:"offerCode"`
+	OfferType      OfferType `json:"type"`
+	BaseModel
+}
+
+// OrganizationOffer ...
+type OrganizationOffer struct {
+	ID             string `json:"id" gorm:"primaryKey"`
+	OrganizationID string `json:"organizationID"`
+	OfferID        string `json:"offerID"`
 }
 
 // Campaign ...
@@ -130,20 +131,18 @@ type Campaign struct {
 
 // Draft used for storing customized bulk campaigns
 type Draft struct {
-	ID             string         `json:"id"`
-	OrganizationID string         `json:"organizationID"`
-	CampaignID     string         `json:"campaignID"`
-	Mobile         string         `json:"mobile"`
-	Body           string         `json:"body"`
-	CreatedAt      time.Time      `json:"createdAt"`
-	UpdatedAt      time.Time      `json:"updatedAt"`
-	DeletedAt      gorm.DeletedAt `json:"deletedAt"`
+	ID         string         `json:"id"`
+	CampaignID string         `json:"campaignID"`
+	Mobile     string         `json:"mobile"`
+	Body       string         `json:"body"`
+	CreatedAt  time.Time      `json:"createdAt"`
+	UpdatedAt  time.Time      `json:"updatedAt"`
+	DeletedAt  gorm.DeletedAt `json:"deletedAt"`
 }
 
 // Outbox ...
 type Outbox struct {
 	ID                string         `json:"id"`
-	OrganizationID    string         `json:"organizationID"`
 	CampaignID        string         `json:"campaignID"`
 	Mobile            string         `json:"mobile"`
 	Body              string         `json:"body"`

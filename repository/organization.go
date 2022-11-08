@@ -37,3 +37,27 @@ func (r *repo) GetOrganizations(ctx context.Context, query *models.Organization)
 	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
 	return data, err
 }
+
+// AddUserToOrganization ...
+func (r *repo) AddUserToOrganization(ctx context.Context, data *models.UserOrganization) error {
+	return r.DB.Create(data).Error
+}
+
+// RemoveUserFromOrganization ...
+func (r *repo) RemoveUserFromOrganization(ctx context.Context, data *models.UserOrganization) error {
+	return r.DB.Delete(data).Error
+}
+
+// GetOrganizationUsers ...
+func (r *repo) GetOrganizationUsers(ctx context.Context, query *models.UserOrganization) ([]*models.User, error) {
+	var data []*models.User
+	err := r.DB.Where(query).Find(&data).Error
+	return data, err
+}
+
+// GetUsersOrganizations ...
+func (r *repo) GetUsersOrganizations(ctx context.Context, query *models.UserOrganization) ([]*models.Organization, error) {
+	var data []*models.Organization
+	err := r.DB.Where(query).Find(&data).Error
+	return data, err
+}
