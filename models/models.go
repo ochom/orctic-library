@@ -121,12 +121,7 @@ type Campaign struct {
 	Template       string              `json:"template"`
 	ContactGroupID string              `json:"contactGroupID"`
 	SendAt         time.Time           `json:"sendAt"`
-	CreatedBy      string              `json:"createdBy"`
-	UpdatedBy      string              `json:"updatedBy"`
-	DeletedBy      string              `json:"deletedBy"`
-	CreatedAt      time.Time           `json:"createdAt"`
-	UpdatedAt      time.Time           `json:"updatedAt"`
-	DeletedAt      gorm.DeletedAt      `json:"deletedAt"`
+	BaseModel
 }
 
 // Draft used for storing customized bulk campaigns
