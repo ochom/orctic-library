@@ -35,6 +35,10 @@ type Repo interface {
 	DeleteOrganization(ctx context.Context, query *models.Organization) error
 	GetOrganization(ctx context.Context, query *models.Organization) (*models.Organization, error)
 	GetOrganizations(ctx context.Context, query *models.Organization) ([]*models.Organization, error)
+	AddUserToOrganization(ctx context.Context, data *models.UserOrganization) error
+	RemoveUserFromOrganization(ctx context.Context, data *models.UserOrganization) error
+	GetUsersInOrganization(ctx context.Context, organizationID string) ([]*models.User, error)
+	GetOrganizationsForUser(ctx context.Context, userID string) ([]*models.Organization, error)
 
 	CreateSenderName(ctx context.Context, data *models.SenderName) error
 	UpdateSenderName(ctx context.Context, data *models.SenderName) error
