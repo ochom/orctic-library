@@ -121,8 +121,11 @@ func (r *repo) init(pl Platform) error {
 	schema := []interface{}{
 		&models.Organization{},
 		&models.User{},
+		&models.UserOrganization{},
 		&models.SenderName{},
+		&models.OrganizationSenderName{},
 		&models.Offer{},
+		&models.OrganizationOffer{},
 		&models.ContactGroup{},
 		&models.Contact{},
 		&models.Subscriber{},
