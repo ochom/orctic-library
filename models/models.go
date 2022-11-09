@@ -21,6 +21,7 @@ type BaseModel struct {
 type Organization struct {
 	ID       string `json:"id" gorm:"primaryKey"`
 	Name     string `json:"name"`
+	Address  string `json:"address"`
 	IsActive bool   `json:"isActive"`
 	OwnerID  string `json:"ownerID"`
 	BaseModel
