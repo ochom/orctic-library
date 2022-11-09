@@ -77,13 +77,14 @@ func (o *OrganizationSenderName) AfterFind(tx *gorm.DB) (err error) {
 
 // Offer ...
 type Offer struct {
-	ID             string    `json:"id"`
-	OrganizationID string    `json:"organizationID"`
-	Name           string    `json:"name" gorm:"uniqueIndex"`
-	Description    string    `json:"description"`
-	ShortCode      string    `json:"shortcode"`
-	OfferCode      string    `json:"offerCode"`
-	OfferType      OfferType `json:"type"`
+	ID             string        `json:"id"`
+	OrganizationID string        `json:"organizationID"`
+	Name           string        `json:"name" gorm:"uniqueIndex"`
+	Description    string        `json:"description"`
+	ShortCode      string        `json:"shortcode"`
+	OfferCode      string        `json:"offerCode"`
+	OfferType      OfferType     `json:"type"`
+	Organization   *Organization `json:"organization" gorm:"-"` // this is a virtual field
 	BaseModel
 }
 
@@ -106,6 +107,14 @@ func (o *Offer) AfterFind(tx *gorm.DB) (err error) {
 		}
 		o.UpdatedBy = &updatedBy
 	}
+
+	var organization Organization
+	err = tx.Model(&Organization{}).Where("id = ?", o.OrganizationID).First(&organization).Error
+	if err != nil {
+		return err
+	}
+
+	o.Organization = &organization
 
 	return nil
 }
