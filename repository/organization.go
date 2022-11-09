@@ -44,8 +44,8 @@ func (r *repo) AddUserToOrganization(ctx context.Context, data *models.UserOrgan
 }
 
 // RemoveUserFromOrganization ...
-func (r *repo) RemoveUserFromOrganization(ctx context.Context, data *models.UserOrganization) error {
-	return r.DB.Delete(data).Error
+func (r *repo) RemoveUserFromOrganization(ctx context.Context, query *models.UserOrganization) error {
+	return r.DB.Where(query).Delete(&models.UserOrganization{}).Error
 }
 
 // GetUsersInOrganization ...
