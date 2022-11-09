@@ -34,44 +34,8 @@ func (s *SenderName) AfterFind(tx *gorm.DB) (err error) {
 	return nil
 }
 
-// Offer ...
-type Offer struct {
-	ID             string    `json:"id"`
-	OrganizationID string    `json:"organizationID"`
-	Name           string    `json:"name" gorm:"uniqueIndex"`
-	Description    string    `json:"description"`
-	ShortCode      string    `json:"shortcode"`
-	OfferCode      string    `json:"offerCode"`
-	OfferType      OfferType `json:"type"`
-	BaseModel
-}
-
-// AfterFind ...
-func (o *Offer) AfterFind(tx *gorm.DB) (err error) {
-	if o.CreatedByID != "" {
-		var createdBy User
-		err = tx.Model(&User{}).Where("id = ?", o.CreatedByID).First(&createdBy).Error
-		if err != nil {
-			return err
-		}
-		o.CreatedBy = &createdBy
-	}
-
-	if o.UpdatedByID != "" {
-		var updatedBy User
-		err = tx.Model(&User{}).Where("id = ?", o.UpdatedByID).First(&updatedBy).Error
-		if err != nil {
-			return err
-		}
-		o.UpdatedBy = &updatedBy
-	}
-
-	return nil
-}
-
 // OrganizationSenderName ...
 type OrganizationSenderName struct {
-	ID             string      `json:"id" gorm:"primaryKey"`
 	OrganizationID string      `json:"organizationID"`
 	SenderNameID   string      `json:"senderNameID"`
 	SenderName     *SenderName `json:"senderName" gorm:"-"` // this is a virtual field
@@ -109,17 +73,20 @@ func (o *OrganizationSenderName) AfterFind(tx *gorm.DB) (err error) {
 	return nil
 }
 
-// OrganizationOffer ...
-type OrganizationOffer struct {
-	ID             string `json:"id"`
-	OrganizationID string `json:"organizationID"`
-	OfferID        string `json:"offerID"`
-	Offer          *Offer `json:"offer" gorm:"-"` // this is a virtual field
+// Offer ...
+type Offer struct {
+	ID             string    `json:"id"`
+	OrganizationID string    `json:"organizationID"`
+	Name           string    `json:"name" gorm:"uniqueIndex"`
+	Description    string    `json:"description"`
+	ShortCode      string    `json:"shortcode"`
+	OfferCode      string    `json:"offerCode"`
+	OfferType      OfferType `json:"type"`
 	BaseModel
 }
 
 // AfterFind ...
-func (o *OrganizationOffer) AfterFind(tx *gorm.DB) (err error) {
+func (o *Offer) AfterFind(tx *gorm.DB) (err error) {
 	if o.CreatedByID != "" {
 		var createdBy User
 		err = tx.Model(&User{}).Where("id = ?", o.CreatedByID).First(&createdBy).Error
@@ -137,14 +104,6 @@ func (o *OrganizationOffer) AfterFind(tx *gorm.DB) (err error) {
 		}
 		o.UpdatedBy = &updatedBy
 	}
-
-	var offer Offer
-	err = tx.Model(&Offer{}).Where("id = ?", o.OfferID).First(&offer).Error
-	if err != nil {
-		return err
-	}
-
-	o.Offer = &offer
 
 	return nil
 }

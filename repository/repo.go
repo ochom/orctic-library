@@ -35,16 +35,16 @@ type Repo interface {
 	DeleteOrganization(ctx context.Context, query *models.Organization) error
 	GetOrganization(ctx context.Context, query *models.Organization) (*models.Organization, error)
 	GetOrganizations(ctx context.Context, query *models.Organization) ([]*models.Organization, error)
-	AddUserToOrganization(ctx context.Context, data *models.UserOrganization) error
-	RemoveUserFromOrganization(ctx context.Context, data *models.UserOrganization) error
-	GetUsersInOrganization(ctx context.Context, organizationID string) ([]*models.User, error)
-	GetOrganizationsForUser(ctx context.Context, userID string) ([]*models.Organization, error)
 
 	CreateSenderName(ctx context.Context, data *models.SenderName) error
 	UpdateSenderName(ctx context.Context, data *models.SenderName) error
 	DeleteSenderName(ctx context.Context, query *models.SenderName) error
 	GetSenderName(ctx context.Context, query *models.SenderName) (*models.SenderName, error)
 	GetSenderNames(ctx context.Context, query *models.SenderName) ([]*models.SenderName, error)
+
+	AddSenderNameToOrganization(ctx context.Context, data *models.OrganizationSenderName) error
+	RemoveSenderNameFromOrganization(ctx context.Context, query *models.OrganizationSenderName) error
+	GetOrganizationSenderNames(ctx context.Context, orgID string) ([]*models.OrganizationSenderName, error)
 
 	CreateOffer(ctx context.Context, data *models.Offer) error
 	UpdateOffer(ctx context.Context, data *models.Offer) error
@@ -57,6 +57,11 @@ type Repo interface {
 	DeleteUser(ctx context.Context, query *models.User) error
 	GetUser(ctx context.Context, query *models.User) (*models.User, error)
 	GetUsers(ctx context.Context, query *models.User) ([]*models.User, error)
+
+	AddUserToOrganization(ctx context.Context, data *models.UserOrganization) error
+	RemoveUserFromOrganization(ctx context.Context, query *models.UserOrganization) error
+	GetUsersInOrganization(ctx context.Context, organizationID string) ([]*models.User, error)
+	GetOrganizationsForUser(ctx context.Context, userID string) ([]*models.Organization, error)
 
 	CreateSubscriber(ctx context.Context, data *models.Subscriber) error
 	DeleteSubscriber(ctx context.Context, query *models.Subscriber) error
@@ -129,7 +134,6 @@ func (r *repo) init(pl Platform) error {
 		&models.SenderName{},
 		&models.OrganizationSenderName{},
 		&models.Offer{},
-		&models.OrganizationOffer{},
 		&models.ContactGroup{},
 		&models.Contact{},
 		&models.Subscriber{},
