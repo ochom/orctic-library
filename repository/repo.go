@@ -43,6 +43,7 @@ type Repo interface {
 	GetSenderNames(ctx context.Context, query *models.SenderName) ([]*models.SenderName, error)
 
 	AddSenderNameToOrganization(ctx context.Context, data *models.OrganizationSenderName) error
+	UpdateOrganizationSenderName(ctx context.Context, data *models.OrganizationSenderName) error
 	RemoveSenderNameFromOrganization(ctx context.Context, query *models.OrganizationSenderName) error
 	GetOrganizationSenderNames(ctx context.Context, orgID string) ([]*models.OrganizationSenderName, error)
 

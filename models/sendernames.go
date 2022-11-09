@@ -36,6 +36,7 @@ func (s *SenderName) AfterFind(tx *gorm.DB) (err error) {
 
 // OrganizationSenderName ...
 type OrganizationSenderName struct {
+	ID             string      `json:"id" gorm:"primaryKey"`
 	OrganizationID string      `json:"organizationID"`
 	SenderNameID   string      `json:"senderNameID"`
 	CostPerSMS     float64     `json:"costPerSMS"`

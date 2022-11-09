@@ -43,6 +43,11 @@ func (r *repo) AddSenderNameToOrganization(ctx context.Context, data *models.Org
 	return r.DB.Create(data).Error
 }
 
+// UpdateOrganizationSenderName ...
+func (r *repo) UpdateOrganizationSenderName(ctx context.Context, data *models.OrganizationSenderName) error {
+	return r.DB.Save(data).Error
+}
+
 // RemoveSenderNameFromOrganization ...
 func (r *repo) RemoveSenderNameFromOrganization(ctx context.Context, query *models.OrganizationSenderName) error {
 	return r.DB.Where(query).Delete(&models.OrganizationSenderName{}).Error
