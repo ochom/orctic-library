@@ -38,6 +38,7 @@ func (s *SenderName) AfterFind(tx *gorm.DB) (err error) {
 type OrganizationSenderName struct {
 	OrganizationID string      `json:"organizationID"`
 	SenderNameID   string      `json:"senderNameID"`
+	CostPerSMS     float64     `json:"costPerSMS"`
 	SenderName     *SenderName `json:"senderName" gorm:"-"` // this is a virtual field
 	BaseModel
 }
