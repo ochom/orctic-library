@@ -10,9 +10,8 @@ import (
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
-
-//go:generate mockgen -source=database.go -destination=mocks/mock_database.go -package=mocks
 
 // Platform ...
 type Platform string
@@ -115,7 +114,9 @@ func (r *repo) init(pl Platform) error {
 
 	switch pl {
 	case MySQL:
-		db, err = gorm.Open(mysql.Open(dns), &gorm.Config{})
+		db, err = gorm.Open(mysql.Open(dns), &gorm.Config{
+			Logger: logger.Default.LogMode(logger.Silent),
+		})
 	case Postgres:
 		db, err = gorm.Open(postgres.Open(dns), &gorm.Config{})
 	case SQLite:
