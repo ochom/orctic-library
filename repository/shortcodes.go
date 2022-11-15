@@ -38,6 +38,36 @@ func (r *repo) GetSenderNames(ctx context.Context, query *models.SenderName) ([]
 	return data, err
 }
 
+// AddSenderNameToOrganization ...
+func (r *repo) AddSenderNameToOrganization(ctx context.Context, data *models.OrganizationSenderName) error {
+	return r.DB.Create(data).Error
+}
+
+// UpdateOrganizationSenderName ...
+func (r *repo) UpdateOrganizationSenderName(ctx context.Context, data *models.OrganizationSenderName) error {
+	return r.DB.Save(data).Error
+}
+
+// RemoveSenderNameFromOrganization ...
+func (r *repo) RemoveSenderNameFromOrganization(ctx context.Context, query *models.OrganizationSenderName) error {
+	return r.DB.Where(query).Delete(&models.OrganizationSenderName{}).Error
+}
+
+// GetOrganizationSenderNames ...
+func (r *repo) GetOrganizationSenderNames(ctx context.Context, organizationID string) ([]*models.OrganizationSenderName, error) {
+	var data []*models.OrganizationSenderName
+	query := &models.OrganizationSenderName{
+		OrganizationID: organizationID,
+	}
+
+	err := r.DB.Where(query).Find(&data).Error
+	if err != nil {
+		return nil, err
+	}
+
+	return data, nil
+}
+
 // CreateOffer ...
 func (r *repo) CreateOffer(ctx context.Context, data *models.Offer) error {
 	return r.DB.Create(data).Error
