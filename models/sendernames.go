@@ -77,14 +77,15 @@ func (o *OrganizationSenderName) AfterFind(tx *gorm.DB) (err error) {
 
 // Offer ...
 type Offer struct {
-	ID             string        `json:"id"`
-	OrganizationID string        `json:"organizationID"`
-	Name           string        `json:"name" gorm:"uniqueIndex"`
-	Description    string        `json:"description"`
-	ShortCode      string        `json:"shortcode"`
-	OfferCode      string        `json:"offerCode"`
-	OfferType      OfferType     `json:"type"`
-	Organization   *Organization `json:"organization" gorm:"-"` // this is a virtual field
+	ID               string        `json:"id"`
+	OrganizationID   string        `json:"organizationID"`
+	Name             string        `json:"name" gorm:"uniqueIndex"`
+	Description      string        `json:"description"`
+	ShortCode        string        `json:"shortcode"`
+	OfferCode        string        `json:"offerCode"`
+	OfferType        OfferType     `json:"type"`
+	Organization     *Organization `json:"organization" gorm:"-"`     // this is a virtual field
+	TotalSubscribers int64         `json:"totalSubscribers" gorm:"-"` // this is a virtual field
 	BaseModel
 }
 
@@ -115,6 +116,14 @@ func (o *Offer) AfterFind(tx *gorm.DB) (err error) {
 	}
 
 	o.Organization = &organization
+
+	var totalSubscribers int64
+	err = tx.Model(&Subscriber{}).Where("offer_id = ?", o.ID).Count(&totalSubscribers).Error
+	if err != nil {
+		return err
+	}
+
+	o.TotalSubscribers = totalSubscribers
 
 	return nil
 }
