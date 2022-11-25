@@ -136,3 +136,24 @@ const (
 	SMS SubscriptionSource = "SMS"
 	Web SubscriptionSource = "Web"
 )
+
+// String ...
+func (s SubscriptionSource) String() string {
+	return string(s)
+}
+
+// MarshalGQL ...
+func (s SubscriptionSource) MarshalGQL(w io.Writer) {
+	_, _ = w.Write([]byte(strconv.Quote(s.String())))
+}
+
+// UnmarshalGQL ...
+func (s *SubscriptionSource) UnmarshalGQL(v interface{}) error {
+	switch v := v.(type) {
+	case string:
+		*s = SubscriptionSource(v)
+		return nil
+	default:
+		return nil
+	}
+}
