@@ -127,3 +127,12 @@ func (s *CampaignMessageType) UnmarshalGQL(v interface{}) error {
 		return nil
 	}
 }
+
+// SubscriptionSource ...
+type SubscriptionSource string
+
+// SubscriptionSource ...
+const (
+	SMS SubscriptionSource = "SMS"
+	Web SubscriptionSource = "Web"
+)
