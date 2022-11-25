@@ -25,13 +25,14 @@ type UserOrganization struct {
 
 // Subscriber ...
 type Subscriber struct {
-	ID        string         `json:"id" gorm:"primaryKey"`
-	Mobile    string         `json:"mobile"`
-	OfferID   string         `json:"offerID"`
-	IsActive  bool           `json:"isActive"`
-	CreatedAt time.Time      `json:"createdAt"`
-	UpdatedAt time.Time      `json:"updatedAt"`
-	DeletedAt gorm.DeletedAt `json:"deletedAt"`
+	ID        string             `json:"id" gorm:"primaryKey"`
+	Mobile    string             `json:"mobile"`
+	OfferID   string             `json:"offerID"`
+	IsActive  bool               `json:"isActive"`
+	Source    SubscriptionSource `json:"source"`
+	CreatedAt time.Time          `json:"createdAt"`
+	UpdatedAt time.Time          `json:"updatedAt"`
+	DeletedAt gorm.DeletedAt     `json:"deletedAt"`
 }
 
 // OrganizationSenderName ...
