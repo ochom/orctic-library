@@ -112,15 +112,21 @@ func (r *repo) init(pl Platform) error {
 	var db *gorm.DB
 	var err error
 
+	sqlLogger := logger.Default.LogMode(logger.Silent)
+
 	switch pl {
 	case MySQL:
 		db, err = gorm.Open(mysql.Open(dns), &gorm.Config{
-			Logger: logger.Default.LogMode(logger.Silent),
+			Logger: sqlLogger,
 		})
 	case Postgres:
-		db, err = gorm.Open(postgres.Open(dns), &gorm.Config{})
+		db, err = gorm.Open(postgres.Open(dns), &gorm.Config{
+			Logger: sqlLogger,
+		})
 	case SQLite:
-		db, err = gorm.Open(sqlite.Open(dns), &gorm.Config{})
+		db, err = gorm.Open(sqlite.Open(dns), &gorm.Config{
+			Logger: sqlLogger,
+		})
 	}
 
 	if err != nil {
