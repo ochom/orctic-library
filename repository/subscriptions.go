@@ -10,6 +10,10 @@ func (r *repo) CreateSubscriber(ctx context.Context, data *models.Subscriber) er
 	return r.DB.Create(data).Error
 }
 
+func (r *repo) UpdateSubscriber(ctx context.Context, data *models.Subscriber) error {
+	return r.DB.Save(data).Error
+}
+
 func (r *repo) DeleteSubscriber(ctx context.Context, query *models.Subscriber) error {
 	return r.DB.Where(query).Delete(&models.Subscriber{}).Error
 }

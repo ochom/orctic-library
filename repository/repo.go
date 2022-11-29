@@ -64,6 +64,7 @@ type Repo interface {
 	GetOrganizationsForUser(ctx context.Context, userID string) ([]*models.Organization, error)
 
 	CreateSubscriber(ctx context.Context, data *models.Subscriber) error
+	UpdateSubscriber(ctx context.Context, data *models.Subscriber) error
 	DeleteSubscriber(ctx context.Context, query *models.Subscriber) error
 	GetSubscriber(ctx context.Context, query *models.Subscriber) (*models.Subscriber, error)
 	GetSubscribers(ctx context.Context, query *models.Subscriber) ([]*models.Subscriber, error)
