@@ -1,8 +1,9 @@
-module github.com/ochom/orctic-database
+module github.com/ochom/orctic-library
 
 go 1.18
 
 require (
+	github.com/dongri/phonenumber v0.0.0-20221125022035-545d57243f47
 	gorm.io/driver/mysql v1.4.3
 	gorm.io/driver/postgres v1.4.5
 	gorm.io/driver/sqlite v1.4.3

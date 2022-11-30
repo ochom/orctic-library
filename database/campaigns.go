@@ -1,9 +1,9 @@
-package repository
+package database
 
 import (
 	"context"
 
-	"github.com/ochom/orctic-database/models"
+	"github.com/ochom/orctic-library/models"
 )
 
 // CreateCampaign ...
