@@ -1,11 +1,11 @@
-package repository
+package database
 
 import (
 	"context"
 	"fmt"
 	"os"
 
-	"github.com/ochom/orctic-database/models"
+	"github.com/ochom/orctic-library/models"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
