@@ -74,6 +74,9 @@ const (
 
 	// Bulk ...
 	Bulk CampaignType = "Bulk"
+
+	// Direct ...
+	Direct CampaignType = "Direct"
 )
 
 // String ...
@@ -104,7 +107,6 @@ type CampaignMessageType string
 const (
 	Personalized CampaignMessageType = "Personalized"
 	Broadcast    CampaignMessageType = "Broadcast"
-	Direct       CampaignMessageType = "Direct"
 )
 
 // String ...
