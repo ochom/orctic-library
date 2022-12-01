@@ -103,8 +103,8 @@ type CampaignMessageType string
 // CampaignMessageType ...
 const (
 	Personalized CampaignMessageType = "Personalized"
-	General      CampaignMessageType = "General"
-	Instant      CampaignMessageType = "Instant"
+	Broadcast    CampaignMessageType = "Broadcast"
+	Direct       CampaignMessageType = "Direct"
 )
 
 // String ...
