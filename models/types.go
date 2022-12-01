@@ -74,6 +74,9 @@ const (
 
 	// Bulk ...
 	Bulk CampaignType = "Bulk"
+
+	// Direct ...
+	Direct CampaignType = "Direct"
 )
 
 // String ...
@@ -97,14 +100,45 @@ func (s *CampaignType) UnmarshalGQL(v interface{}) error {
 	}
 }
 
+// CampaignStatus ...
+type CampaignStatus string
+
+// CampaignStatus ...
+const (
+	Pending  CampaignStatus = "Pending"
+	Sent     CampaignStatus = "Sent"
+	Failed   CampaignStatus = "Failed"
+	Canceled CampaignStatus = "Canceled"
+)
+
+// String ...
+func (s CampaignStatus) String() string {
+	return string(s)
+}
+
+// MarshalGQL ...
+func (s CampaignStatus) MarshalGQL(w io.Writer) {
+	_, _ = w.Write([]byte(strconv.Quote(s.String())))
+}
+
+// UnmarshalGQL ...
+func (s *CampaignStatus) UnmarshalGQL(v interface{}) error {
+	switch v := v.(type) {
+	case string:
+		*s = CampaignStatus(v)
+		return nil
+	default:
+		return nil
+	}
+}
+
 // CampaignMessageType ...
 type CampaignMessageType string
 
 // CampaignMessageType ...
 const (
 	Personalized CampaignMessageType = "Personalized"
-	General      CampaignMessageType = "General"
-	Instant      CampaignMessageType = "Instant"
+	Broadcast    CampaignMessageType = "Broadcast"
 )
 
 // String ...

@@ -17,6 +17,7 @@ type Campaign struct {
 	Template       string              `json:"template"`
 	ContactGroupID string              `json:"contactGroupID"`
 	SendAt         time.Time           `json:"sendAt"`
+	Status         CampaignStatus      `json:"status"`
 	BaseModel
 	SenderName *SenderName `json:"senderName" gorm:"-"` // this is a virtual field
 	Offer      *Offer      `json:"offer" gorm:"-"`      // this is a virtual field
