@@ -72,8 +72,9 @@ func (o *Organization) AfterFind(tx *gorm.DB) (err error) {
 // OrganizationKey ...
 type OrganizationKey struct {
 	ID             string        `json:"id" gorm:"primaryKey"`
-	OrganizationID string        `json:"organizationID" gorm:"required"`
-	Key            string        `json:"key" gorm:"required"`
+	OrganizationID string        `json:"organizationID"`
+	Name           string        `json:"name"`
+	Token          string        `json:"token"`
 	Organization   *Organization `json:"organization" gorm:"-"` // this is a virtual field
 	BaseModel
 }
