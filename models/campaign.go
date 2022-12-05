@@ -1,6 +1,7 @@
 package models
 
 import (
+	"sync"
 	"time"
 
 	"gorm.io/gorm"
@@ -25,41 +26,68 @@ type Campaign struct {
 
 // AfterFind ...
 func (c *Campaign) AfterFind(tx *gorm.DB) (err error) {
-	if c.CreatedByID != "" {
-		var createdBy User
-		err = tx.Model(&User{}).Where("id = ?", c.CreatedByID).First(&createdBy).Error
-		if err != nil {
-			return err
-		}
-		c.CreatedBy = &createdBy
-	}
+	wg := sync.WaitGroup{}
+	mu := sync.Mutex{}
 
-	if c.UpdatedByID != "" {
-		var updatedBy User
-		err = tx.Model(&User{}).Where("id = ?", c.UpdatedByID).First(&updatedBy).Error
-		if err != nil {
-			return err
-		}
-		c.UpdatedBy = &updatedBy
-	}
-
-	if c.SenderNameID != "" {
+	// get sender name
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var senderName SenderName
 		err = tx.Model(&SenderName{}).Where("id = ?", c.SenderNameID).First(&senderName).Error
 		if err != nil {
-			return err
+			return
 		}
-		c.SenderName = &senderName
-	}
 
-	if c.OfferID != "" {
+		mu.Lock()
+		c.SenderName = &senderName
+		mu.Unlock()
+	}()
+
+	// get offer
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var offer Offer
 		err = tx.Model(&Offer{}).Where("id = ?", c.OfferID).First(&offer).Error
 		if err != nil {
-			return err
+			return
 		}
+		mu.Lock()
 		c.Offer = &offer
-	}
+		mu.Unlock()
+	}()
+
+	// get created by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		var createdBy User
+		err = tx.Model(&User{}).Where("id = ?", c.CreatedByID).First(&createdBy).Error
+		if err != nil {
+			return
+		}
+
+		mu.Lock()
+		c.CreatedBy = &createdBy
+		mu.Unlock()
+	}()
+
+	// get updated by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		var updatedBy User
+		err = tx.Model(&User{}).Where("id = ?", c.UpdatedByID).First(&updatedBy).Error
+		if err != nil {
+			return
+		}
+
+		mu.Lock()
+		c.UpdatedBy = &updatedBy
+		mu.Unlock()
+	}()
+	wg.Wait()
 
 	return nil
 }

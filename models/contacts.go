@@ -1,6 +1,10 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"sync"
+
+	"gorm.io/gorm"
+)
 
 // ContactGroup ...
 type ContactGroup struct {
@@ -13,28 +17,43 @@ type ContactGroup struct {
 
 // AfterFind ...
 func (c *ContactGroup) AfterFind(tx *gorm.DB) (err error) {
-	if c.CreatedByID != "" {
+	wg := sync.WaitGroup{}
+	mu := sync.Mutex{}
+
+	// get created by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var createdBy User
 		err = tx.Model(&User{}).Where("id = ?", c.CreatedByID).First(&createdBy).Error
 		if err != nil {
-			return err
+			return
 		}
-		c.CreatedBy = &createdBy
-	}
 
-	if c.UpdatedByID != "" {
+		mu.Lock()
+		c.CreatedBy = &createdBy
+		mu.Unlock()
+	}()
+
+	// get updated by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var updatedBy User
 		err = tx.Model(&User{}).Where("id = ?", c.UpdatedByID).First(&updatedBy).Error
 		if err != nil {
-			return err
+			return
 		}
+
+		mu.Lock()
 		c.UpdatedBy = &updatedBy
-	}
+		mu.Unlock()
+	}()
+	wg.Wait()
 
 	return nil
 }
 
-//
 // Contact ...
 type Contact struct {
 	ID      string `json:"id"`
@@ -45,23 +64,39 @@ type Contact struct {
 
 // AfterFind ...
 func (c *Contact) AfterFind(tx *gorm.DB) (err error) {
-	if c.CreatedByID != "" {
+	wg := sync.WaitGroup{}
+	mu := sync.Mutex{}
+
+	// get created by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var createdBy User
 		err = tx.Model(&User{}).Where("id = ?", c.CreatedByID).First(&createdBy).Error
 		if err != nil {
-			return err
+			return
 		}
-		c.CreatedBy = &createdBy
-	}
 
-	if c.UpdatedByID != "" {
+		mu.Lock()
+		c.CreatedBy = &createdBy
+		mu.Unlock()
+	}()
+
+	// get updated by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var updatedBy User
 		err = tx.Model(&User{}).Where("id = ?", c.UpdatedByID).First(&updatedBy).Error
 		if err != nil {
-			return err
+			return
 		}
+
+		mu.Lock()
 		c.UpdatedBy = &updatedBy
-	}
+		mu.Unlock()
+	}()
+	wg.Wait()
 
 	return nil
 }

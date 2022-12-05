@@ -61,3 +61,35 @@ func (r *repo) GetOrganizationsForUser(ctx context.Context, userID string) ([]*m
 	err := r.DB.Model(&models.Organization{}).Joins("JOIN user_organizations ON organizations.id = user_organizations.organization_id").Where("user_organizations.user_id = ?", userID).Find(&data).Error
 	return data, err
 }
+
+// CreateOrganizationKey ...
+func (r *repo) CreateOrganizationKey(ctx context.Context, data *models.OrganizationKey) error {
+	return r.DB.Create(data).Error
+}
+
+// UpdateOrganizationKey ...
+func (r *repo) UpdateOrganizationKey(ctx context.Context, data *models.OrganizationKey) error {
+	return r.DB.Save(data).Error
+}
+
+// DeleteOrganizationKey ...
+func (r *repo) DeleteOrganizationKey(ctx context.Context, query *models.OrganizationKey) error {
+	return r.DB.Where(query).Delete(&models.OrganizationKey{}).Error
+}
+
+// GetOrganizationKey ...
+func (r *repo) GetOrganizationKey(ctx context.Context, query *models.OrganizationKey) (*models.OrganizationKey, error) {
+	var data models.OrganizationKey
+	err := r.DB.Where(query).First(&data).Error
+	if err != nil {
+		return nil, err
+	}
+	return &data, nil
+}
+
+// GetOrganizationKeys ...
+func (r *repo) GetOrganizationKeys(ctx context.Context, query *models.OrganizationKey) ([]*models.OrganizationKey, error) {
+	var data []*models.OrganizationKey
+	err := r.DB.Where(query).Order("created_at desc").Find(&data).Error
+	return data, err
+}

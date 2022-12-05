@@ -35,6 +35,12 @@ type Repo interface {
 	GetOrganization(ctx context.Context, query *models.Organization) (*models.Organization, error)
 	GetOrganizations(ctx context.Context, query *models.Organization) ([]*models.Organization, error)
 
+	CreateOrganizationKey(ctx context.Context, data *models.OrganizationKey) error
+	UpdateOrganizationKey(ctx context.Context, data *models.OrganizationKey) error
+	DeleteOrganizationKey(ctx context.Context, query *models.OrganizationKey) error
+	GetOrganizationKey(ctx context.Context, query *models.OrganizationKey) (*models.OrganizationKey, error)
+	GetOrganizationKeys(ctx context.Context, query *models.OrganizationKey) ([]*models.OrganizationKey, error)
+
 	CreateSenderName(ctx context.Context, data *models.SenderName) error
 	UpdateSenderName(ctx context.Context, data *models.SenderName) error
 	DeleteSenderName(ctx context.Context, query *models.SenderName) error
@@ -149,6 +155,7 @@ func (r *repo) init(pl Platform) error {
 		&models.Campaign{},
 		&models.Draft{},
 		&models.Outbox{},
+		&models.OrganizationKey{},
 	}
 
 	err = r.DB.AutoMigrate(schema...)
