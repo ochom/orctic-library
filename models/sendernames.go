@@ -1,6 +1,10 @@
 package models
 
-import "gorm.io/gorm"
+import (
+	"sync"
+
+	"gorm.io/gorm"
+)
 
 // SenderName ...
 type SenderName struct {
@@ -14,23 +18,39 @@ type SenderName struct {
 
 // AfterFind ...
 func (s *SenderName) AfterFind(tx *gorm.DB) (err error) {
-	if s.CreatedByID != "" {
+	wg := sync.WaitGroup{}
+	mu := sync.Mutex{}
+
+	// get created by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var createdBy User
 		err = tx.Model(&User{}).Where("id = ?", s.CreatedByID).First(&createdBy).Error
 		if err != nil {
-			return err
+			return
 		}
-		s.CreatedBy = &createdBy
-	}
 
-	if s.UpdatedByID != "" {
+		mu.Lock()
+		s.CreatedBy = &createdBy
+		mu.Unlock()
+	}()
+
+	// get updated by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var updatedBy User
 		err = tx.Model(&User{}).Where("id = ?", s.UpdatedByID).First(&updatedBy).Error
 		if err != nil {
-			return err
+			return
 		}
+
+		mu.Lock()
 		s.UpdatedBy = &updatedBy
-	}
+		mu.Unlock()
+	}()
+	wg.Wait()
 
 	return nil
 }
@@ -47,31 +67,55 @@ type OrganizationSenderName struct {
 
 // AfterFind ...
 func (o *OrganizationSenderName) AfterFind(tx *gorm.DB) (err error) {
-	if o.CreatedByID != "" {
+	wg := sync.WaitGroup{}
+	mu := sync.Mutex{}
+
+	// get created by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var createdBy User
 		err = tx.Model(&User{}).Where("id = ?", o.CreatedByID).First(&createdBy).Error
 		if err != nil {
-			return err
+			return
 		}
-		o.CreatedBy = &createdBy
-	}
 
-	if o.UpdatedByID != "" {
+		mu.Lock()
+		o.CreatedBy = &createdBy
+		mu.Unlock()
+	}()
+
+	// get updated by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var updatedBy User
 		err = tx.Model(&User{}).Where("id = ?", o.UpdatedByID).First(&updatedBy).Error
 		if err != nil {
-			return err
+			return
 		}
+
+		mu.Lock()
 		o.UpdatedBy = &updatedBy
-	}
+		mu.Unlock()
+	}()
 
-	var senderName SenderName
-	err = tx.Model(&SenderName{}).Where("id = ?", o.SenderNameID).First(&senderName).Error
-	if err != nil {
-		return err
-	}
+	// get sender name
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		var senderName SenderName
+		err = tx.Model(&SenderName{}).Where("id = ?", o.SenderNameID).First(&senderName).Error
+		if err != nil {
+			return
+		}
 
-	o.SenderName = &senderName
+		mu.Lock()
+		o.SenderName = &senderName
+		mu.Unlock()
+	}()
+
+	wg.Wait()
 
 	return nil
 }
@@ -92,39 +136,71 @@ type Offer struct {
 
 // AfterFind ...
 func (o *Offer) AfterFind(tx *gorm.DB) (err error) {
-	if o.CreatedByID != "" {
+	wg := sync.WaitGroup{}
+	mu := sync.Mutex{}
+
+	// get created by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var createdBy User
 		err = tx.Model(&User{}).Where("id = ?", o.CreatedByID).First(&createdBy).Error
 		if err != nil {
-			return err
+			return
 		}
-		o.CreatedBy = &createdBy
-	}
 
-	if o.UpdatedByID != "" {
+		mu.Lock()
+		o.CreatedBy = &createdBy
+		mu.Unlock()
+	}()
+
+	// get updated by
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 		var updatedBy User
 		err = tx.Model(&User{}).Where("id = ?", o.UpdatedByID).First(&updatedBy).Error
 		if err != nil {
-			return err
+			return
 		}
+
+		mu.Lock()
 		o.UpdatedBy = &updatedBy
-	}
+		mu.Unlock()
+	}()
 
-	var organization Organization
-	err = tx.Model(&Organization{}).Where("id = ?", o.OrganizationID).First(&organization).Error
-	if err != nil {
-		return err
-	}
+	// get organization
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 
-	o.Organization = &organization
+		var organization Organization
+		err = tx.Model(&Organization{}).Where("id = ?", o.OrganizationID).First(&organization).Error
+		if err != nil {
+			return
+		}
+		mu.Lock()
+		o.Organization = &organization
+		mu.Unlock()
+	}()
 
-	var totalSubscribers int64
-	err = tx.Model(&Subscriber{}).Where("offer_id = ?", o.ID).Count(&totalSubscribers).Error
-	if err != nil {
-		return err
-	}
+	// get total subscribers
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
 
-	o.TotalSubscribers = totalSubscribers
+		var totalSubscribers int64
+		err = tx.Model(&Subscriber{}).Where("offer_id = ?", o.ID).Count(&totalSubscribers).Error
+		if err != nil {
+			return
+		}
+
+		mu.Lock()
+		o.TotalSubscribers = totalSubscribers
+		mu.Unlock()
+	}()
+
+	wg.Wait()
 
 	return nil
 }
