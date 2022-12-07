@@ -122,15 +122,18 @@ func (o *OrganizationSenderName) AfterFind(tx *gorm.DB) (err error) {
 
 // Offer ...
 type Offer struct {
-	ID               string        `json:"id"`
-	OrganizationID   string        `json:"organizationID"`
-	Name             string        `json:"name" gorm:"uniqueIndex"`
-	Description      string        `json:"description"`
-	ShortCode        string        `json:"shortcode"`
-	OfferCode        string        `json:"offerCode"`
-	OfferType        OfferType     `json:"type"`
-	Organization     *Organization `json:"organization" gorm:"-"`     // this is a virtual field
-	TotalSubscribers int64         `json:"totalSubscribers" gorm:"-"` // this is a virtual field
+	ID                 string        `json:"id"`
+	OrganizationID     string        `json:"organizationID"`
+	Name               string        `json:"name" gorm:"uniqueIndex"`
+	Description        string        `json:"description"`
+	DisplayName        string        `json:"displayName"`
+	DisplayDescription string        `json:"displayDescription"`
+	DisplayIcon        string        `json:"displayIcon"`
+	ShortCode          string        `json:"shortcode"`
+	OfferCode          string        `json:"offerCode"`
+	OfferType          OfferType     `json:"type"`
+	Organization       *Organization `json:"organization" gorm:"-"`     // this is a virtual field
+	TotalSubscribers   int64         `json:"totalSubscribers" gorm:"-"` // this is a virtual field
 	BaseModel
 }
 
