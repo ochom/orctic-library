@@ -128,6 +128,7 @@ type Offer struct {
 	Description        string        `json:"description"`
 	DisplayName        string        `json:"displayName"`
 	DisplayDescription string        `json:"displayDescription"`
+	DisplayIcon        string        `json:"displayIcon"`
 	ShortCode          string        `json:"shortcode"`
 	OfferCode          string        `json:"offerCode"`
 	OfferType          OfferType     `json:"type"`
