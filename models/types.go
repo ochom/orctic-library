@@ -191,3 +191,14 @@ func (s *SubscriptionSource) UnmarshalGQL(v interface{}) error {
 		return nil
 	}
 }
+
+// SubscriberStatus ...
+type SubscriberStatus string
+
+// SubscriberStatus ...
+const (
+	Active        SubscriberStatus = "Active"
+	Inactive      SubscriberStatus = "Inactive"
+	ConsentSent   SubscriberStatus = "Consent Sent"
+	ConsentDenied SubscriberStatus = "Consent Denied"
+)
