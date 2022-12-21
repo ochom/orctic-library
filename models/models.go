@@ -51,11 +51,13 @@ type Draft struct {
 // Outbox ...
 type Outbox struct {
 	ID                string         `json:"id"`
+	OrganizationID    string         `json:"organizationID"`
 	CampaignID        string         `json:"campaignID"`
 	Mobile            string         `json:"mobile"`
 	Body              string         `json:"body"`
 	LinkID            string         `json:"linkID"`
-	Status            string         `json:"status"`
+	Source            OutboxSource   `json:"source"`
+	Status            OutboxStatus   `json:"status"`
 	StatusDescription string         `json:"statusDescription"`
 	CreatedAt         time.Time      `json:"createdAt"`
 	UpdatedAt         time.Time      `json:"updatedAt"`

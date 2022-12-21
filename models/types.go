@@ -1,193 +1,78 @@
 package models
 
-import (
-	"io"
-	"strconv"
-)
-
 // SenderNameType ...
 type SenderNameType string
 
-// SenderNameType ...
+// SenderNameTypes ...
 const (
-	Transactional SenderNameType = "Transactional"
-	Promotional   SenderNameType = "Promotional"
+	TransactionalSenderName SenderNameType = "Transactional"
+	PromotionalSenderName   SenderNameType = "Promotional"
 )
-
-// String ...
-func (s SenderNameType) String() string {
-	return string(s)
-}
-
-// MarshalGQL ...
-func (s SenderNameType) MarshalGQL(w io.Writer) {
-	_, _ = w.Write([]byte(strconv.Quote(s.String())))
-}
-
-// UnmarshalGQL ...
-func (s *SenderNameType) UnmarshalGQL(v interface{}) error {
-	switch v := v.(type) {
-	case string:
-		*s = SenderNameType(v)
-		return nil
-	default:
-		return nil
-	}
-}
 
 // OfferType ...
 type OfferType string
 
-// OfferType ...
+// OfferTypes ...
 const (
-	OnDemand     OfferType = "On-demand"
-	Subscription OfferType = "Subscription" // recurring
+	OnDemandOffer     OfferType = "On-demand"
+	SubscriptionOffer OfferType = "Subscription" // recurring
 )
-
-// String ...
-func (s OfferType) String() string {
-	return string(s)
-}
-
-// MarshalGQL ...
-func (s OfferType) MarshalGQL(w io.Writer) {
-	_, _ = w.Write([]byte(strconv.Quote(s.String())))
-}
-
-// UnmarshalGQL ...
-func (s *OfferType) UnmarshalGQL(v interface{}) error {
-	switch v := v.(type) {
-	case string:
-		*s = OfferType(v)
-		return nil
-	default:
-		return nil
-	}
-}
 
 // CampaignType ...
 type CampaignType string
 
+// CampaignTypes ...
 const (
-	// Premium ...
-	Premium CampaignType = "Premium"
-
-	// Bulk ...
-	Bulk CampaignType = "Bulk"
-
-	// Direct ...
-	Direct CampaignType = "Direct"
+	PremiumCampaign CampaignType = "Premium"
+	BulkCampaign    CampaignType = "Bulk"
+	DirectCampaign  CampaignType = "Direct"
 )
-
-// String ...
-func (s CampaignType) String() string {
-	return string(s)
-}
-
-// MarshalGQL ...
-func (s CampaignType) MarshalGQL(w io.Writer) {
-	_, _ = w.Write([]byte(strconv.Quote(s.String())))
-}
-
-// UnmarshalGQL ...
-func (s *CampaignType) UnmarshalGQL(v interface{}) error {
-	switch v := v.(type) {
-	case string:
-		*s = CampaignType(v)
-		return nil
-	default:
-		return nil
-	}
-}
 
 // CampaignStatus ...
 type CampaignStatus string
 
-// CampaignStatus ...
+// CampaignStatuses ...
 const (
-	Pending  CampaignStatus = "Pending"
-	Sent     CampaignStatus = "Sent"
-	Failed   CampaignStatus = "Failed"
-	Canceled CampaignStatus = "Canceled"
+	PendingCampaign  CampaignStatus = "Pending"
+	SentCampaign     CampaignStatus = "Sent"
+	FailedCampaign   CampaignStatus = "Failed"
+	CanceledCampaign CampaignStatus = "Canceled"
 )
-
-// String ...
-func (s CampaignStatus) String() string {
-	return string(s)
-}
-
-// MarshalGQL ...
-func (s CampaignStatus) MarshalGQL(w io.Writer) {
-	_, _ = w.Write([]byte(strconv.Quote(s.String())))
-}
-
-// UnmarshalGQL ...
-func (s *CampaignStatus) UnmarshalGQL(v interface{}) error {
-	switch v := v.(type) {
-	case string:
-		*s = CampaignStatus(v)
-		return nil
-	default:
-		return nil
-	}
-}
 
 // CampaignMessageType ...
 type CampaignMessageType string
 
-// CampaignMessageType ...
+// CampaignMessageTypes ...
 const (
-	Personalized CampaignMessageType = "Personalized"
-	Broadcast    CampaignMessageType = "Broadcast"
+	PersonalizedCampaignMessage CampaignMessageType = "Personalized"
+	BroadcastCampaignMessage    CampaignMessageType = "Broadcast"
 )
-
-// String ...
-func (s CampaignMessageType) String() string {
-	return string(s)
-}
-
-// MarshalGQL ...
-func (s CampaignMessageType) MarshalGQL(w io.Writer) {
-	_, _ = w.Write([]byte(strconv.Quote(s.String())))
-}
-
-// UnmarshalGQL ...
-func (s *CampaignMessageType) UnmarshalGQL(v interface{}) error {
-	switch v := v.(type) {
-	case string:
-		*s = CampaignMessageType(v)
-		return nil
-	default:
-		return nil
-	}
-}
 
 // SubscriptionSource ...
 type SubscriptionSource string
 
-// SubscriptionSource ...
+// SubscriptionSources ...
 const (
-	SMS SubscriptionSource = "SMS"
-	Web SubscriptionSource = "Web"
+	SMSSubscriptionSource SubscriptionSource = "SMS"
+	WebSubscriptionSource SubscriptionSource = "Web"
 )
 
-// String ...
-func (s SubscriptionSource) String() string {
-	return string(s)
-}
+// OutboxSource ...
+type OutboxSource string
 
-// MarshalGQL ...
-func (s SubscriptionSource) MarshalGQL(w io.Writer) {
-	_, _ = w.Write([]byte(strconv.Quote(s.String())))
-}
+// SmsSources ...
+const (
+	APIOutboxSource OutboxSource = "API"
+	WebOutboxSource OutboxSource = "Web"
+)
 
-// UnmarshalGQL ...
-func (s *SubscriptionSource) UnmarshalGQL(v interface{}) error {
-	switch v := v.(type) {
-	case string:
-		*s = SubscriptionSource(v)
-		return nil
-	default:
-		return nil
-	}
-}
+// OutboxStatus ...
+type OutboxStatus string
+
+// OutboxStatuses ...
+const (
+	PendingOutboxStatus  OutboxStatus = "Pending"
+	SentOutboxStatus     OutboxStatus = "Sent"
+	FailedOutboxStatus   OutboxStatus = "Failed"
+	CanceledOutboxStatus OutboxStatus = "Canceled"
+)
