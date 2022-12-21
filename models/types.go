@@ -76,3 +76,14 @@ const (
 	FailedOutboxStatus   OutboxStatus = "Failed"
 	CanceledOutboxStatus OutboxStatus = "Canceled"
 )
+
+// SubscriberStatus ...
+type SubscriberStatus string
+
+// SubscriberStatus ...
+const (
+	Active        SubscriberStatus = "Active"
+	Inactive      SubscriberStatus = "Inactive"
+	ConsentSent   SubscriberStatus = "Consent Sent"
+	ConsentDenied SubscriberStatus = "Consent Denied"
+)

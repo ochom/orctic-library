@@ -30,6 +30,7 @@ type Subscriber struct {
 	OfferID   string             `json:"offerID"`
 	IsActive  bool               `json:"isActive"`
 	Source    SubscriptionSource `json:"source"`
+	Status    SubscriberStatus   `json:"status"`
 	CreatedAt time.Time          `json:"createdAt"`
 	UpdatedAt time.Time          `json:"updatedAt"`
 	DeletedAt gorm.DeletedAt     `json:"deletedAt"`
