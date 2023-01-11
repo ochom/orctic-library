@@ -37,8 +37,6 @@ type Subscriber struct {
 	DeletedAt         gorm.DeletedAt     `json:"deletedAt"`
 }
 
-// OrganizationSenderName ...
-
 // Draft used for storing customized bulk campaigns
 type Draft struct {
 	ID         string         `json:"id"`
