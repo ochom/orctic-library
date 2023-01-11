@@ -124,7 +124,7 @@ func (o *OrganizationSenderName) AfterFind(tx *gorm.DB) (err error) {
 type Offer struct {
 	ID                 string        `json:"id"`
 	OrganizationID     string        `json:"organizationID"`
-	Name               string        `json:"name" gorm:"uniqueIndex"`
+	Name               string        `json:"name"`
 	Description        string        `json:"description"`
 	DisplayName        string        `json:"displayName"`
 	DisplayDescription string        `json:"displayDescription"`

@@ -25,18 +25,16 @@ type UserOrganization struct {
 
 // Subscriber ...
 type Subscriber struct {
-	ID        string             `json:"id" gorm:"primaryKey"`
-	Mobile    string             `json:"mobile"`
-	OfferID   string             `json:"offerID"`
-	IsActive  bool               `json:"isActive"`
-	Source    SubscriptionSource `json:"source"`
-	Status    SubscriberStatus   `json:"status"`
-	CreatedAt time.Time          `json:"createdAt"`
-	UpdatedAt time.Time          `json:"updatedAt"`
-	DeletedAt gorm.DeletedAt     `json:"deletedAt"`
+	ID                string             `json:"id" gorm:"primaryKey"`
+	Mobile            string             `json:"mobile"`
+	OfferID           string             `json:"offerID"`
+	Source            SubscriptionSource `json:"source"`
+	Status            SubscriberStatus   `json:"status"`
+	StatusDescription string             `json:"statusDescription"`
+	CreatedAt         time.Time          `json:"createdAt"`
+	UpdatedAt         time.Time          `json:"updatedAt"`
+	DeletedAt         gorm.DeletedAt     `json:"deletedAt"`
 }
-
-// OrganizationSenderName ...
 
 // Draft used for storing customized bulk campaigns
 type Draft struct {
@@ -52,11 +50,13 @@ type Draft struct {
 // Outbox ...
 type Outbox struct {
 	ID                string         `json:"id"`
+	OrganizationID    string         `json:"organizationID"`
 	CampaignID        string         `json:"campaignID"`
 	Mobile            string         `json:"mobile"`
 	Body              string         `json:"body"`
 	LinkID            string         `json:"linkID"`
-	Status            string         `json:"status"`
+	Source            OutboxSource   `json:"source"`
+	Status            OutboxStatus   `json:"status"`
 	StatusDescription string         `json:"statusDescription"`
 	CreatedAt         time.Time      `json:"createdAt"`
 	UpdatedAt         time.Time      `json:"updatedAt"`
