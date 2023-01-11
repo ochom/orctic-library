@@ -82,8 +82,11 @@ type SubscriberStatus string
 
 // SubscriberStatus ...
 const (
-	ActiveSubscriber        SubscriberStatus = "Active"
-	InactiveSubscriber      SubscriberStatus = "Inactive"
-	ConsentSentSubscriber   SubscriberStatus = "Consent Sent"
-	ConsentDeniedSubscriber SubscriberStatus = "Consent Denied"
+	PendingSubscriber    SubscriberStatus = "Pending"
+	ProcessingSubscriber SubscriberStatus = "Processing"
+	FailedSubscriber     SubscriberStatus = "Failed"
+	DeclinedSubscriber   SubscriberStatus = "Declined"
+	ActiveSubscriber     SubscriberStatus = "Active"
+	Unsubscribed         SubscriberStatus = "Unsubscribed"
+	Blacklisted          SubscriberStatus = "Blacklisted"
 )
