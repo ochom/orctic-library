@@ -28,7 +28,6 @@ type Subscriber struct {
 	ID                string             `json:"id" gorm:"primaryKey"`
 	Mobile            string             `json:"mobile"`
 	OfferID           string             `json:"offerID"`
-	IsActive          bool               `json:"isActive"`
 	Source            SubscriptionSource `json:"source"`
 	Status            SubscriberStatus   `json:"status"`
 	StatusDescription string             `json:"statusDescription"`
