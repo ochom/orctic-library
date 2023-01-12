@@ -29,7 +29,7 @@ type Subscriber struct {
 	Mobile            string             `json:"mobile"`
 	OfferID           string             `json:"offerID"`
 	Source            SubscriptionSource `json:"source"`
-	Status            SubscriberStatus   `json:"status"`
+	Status            SubscriptionStatus `json:"status"`
 	StatusDescription string             `json:"statusDescription"`
 	CreatedAt         time.Time          `json:"createdAt"`
 	UpdatedAt         time.Time          `json:"updatedAt"`

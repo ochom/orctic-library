@@ -77,16 +77,15 @@ const (
 	CanceledOutboxStatus OutboxStatus = "Canceled"
 )
 
-// SubscriberStatus ...
-type SubscriberStatus string
+// SubscriptionStatus ...
+type SubscriptionStatus string
 
-// SubscriberStatus ...
+// SubscriptionStatus ...
 const (
-	PendingSubscriber    SubscriberStatus = "Pending"
-	ProcessingSubscriber SubscriberStatus = "Processing"
-	FailedSubscriber     SubscriberStatus = "Failed"
-	DeclinedSubscriber   SubscriberStatus = "Declined"
-	ActiveSubscriber     SubscriberStatus = "Active"
-	Unsubscribed         SubscriberStatus = "Unsubscribed"
-	Blacklisted          SubscriberStatus = "Blacklisted"
+	ScheduledSubscription    SubscriptionStatus = "Scheduled"
+	ProcessingSubscription   SubscriptionStatus = "Processing"
+	FailedSubscription       SubscriptionStatus = "Failed"
+	DeclinedSubscription     SubscriptionStatus = "Declined"
+	ActiveSubscription       SubscriptionStatus = "Active"
+	UnsubscribedSubscription SubscriptionStatus = "Unsubscribed"
 )
