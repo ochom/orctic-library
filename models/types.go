@@ -82,7 +82,7 @@ type SubscriptionStatus string
 
 // SubscriptionStatus ...
 const (
-	PendingSubscription      SubscriptionStatus = "Pending"
+	ScheduledSubscription    SubscriptionStatus = "Scheduled"
 	ProcessingSubscription   SubscriptionStatus = "Processing"
 	FailedSubscription       SubscriptionStatus = "Failed"
 	DeclinedSubscription     SubscriptionStatus = "Declined"
