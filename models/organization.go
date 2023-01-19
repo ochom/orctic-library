@@ -1,26 +1,75 @@
 package models
 
 import (
+	"fmt"
 	"sync"
 
+	"github.com/ochom/orctic-library/utils"
 	"gorm.io/gorm"
 )
 
 // Organization ...
 type Organization struct {
-	ID       string `json:"id" gorm:"primaryKey"`
-	Name     string `json:"name"`
-	Address  string `json:"address"`
-	IsActive bool   `json:"isActive"`
-	OwnerID  string `json:"ownerID" gorm:"required"`
+	ID             string `json:"id" gorm:"primaryKey"`
+	Name           string `json:"name"`
+	Address        string `json:"address"`
+	IsActive       bool   `json:"isActive"`
+	OwnerID        string `json:"ownerID" gorm:"required"`
+	BillingAccount string `json:"billingAccount"`
 	BaseModel
 	Owner User `json:"owner" gorm:"-"` // this is a virtual field
+}
+
+// BeforeCreate ...
+func (o *Organization) BeforeCreate(tx *gorm.DB) (err error) {
+	maxAttempts := 10
+	for {
+		maxAttempts--
+		if maxAttempts == 0 {
+			return fmt.Errorf("unable to generate unique account number")
+		}
+
+		accountNumber := utils.GenerateOTP(5)
+		var count int64
+		err := tx.Model(&Organization{}).Where("billing_account = ?", accountNumber).Count(&count).Error
+		if err != nil {
+			return err
+		}
+		if count == 0 {
+			o.BillingAccount = accountNumber
+			break
+		}
+	}
+	return nil
 }
 
 // AfterFind ...
 func (o *Organization) AfterFind(tx *gorm.DB) (err error) {
 	wg := sync.WaitGroup{}
 	mu := sync.Mutex{}
+
+	// set billing account if empty
+	if o.BillingAccount == "" {
+		maxAttempts := 10
+		for {
+			maxAttempts--
+			if maxAttempts == 0 {
+				return fmt.Errorf("unable to generate unique account number")
+			}
+
+			accountNumber := utils.GenerateOTP(5)
+			var count int64
+			err := tx.Model(&Organization{}).Where("billing_account = ?", accountNumber).Count(&count).Error
+			if err != nil {
+				return err
+			}
+			if count == 0 {
+				o.BillingAccount = accountNumber
+				_ = tx.Save(o)
+				break
+			}
+		}
+	}
 
 	// get owner
 	wg.Add(1)

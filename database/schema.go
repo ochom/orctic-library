@@ -17,5 +17,7 @@ func getSchema() []any {
 		&models.Draft{},
 		&models.Outbox{},
 		&models.APIKey{},
+		&models.Payment{},
+		&models.Unit{},
 	}
 }
