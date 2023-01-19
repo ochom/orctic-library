@@ -11,6 +11,14 @@ func (e *CustomError) Error() string {
 	return e.Message
 }
 
+// New create a general custom error
+func New(message string) *CustomError {
+	return &CustomError{
+		Code:    1,
+		Message: message,
+	}
+}
+
 // NotFoundError is returned when a resource is not found
 func NotFoundError(message string) *CustomError {
 	return &CustomError{
