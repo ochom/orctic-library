@@ -133,6 +133,7 @@ type Offer struct {
 	ShortCode          string        `json:"shortcode"`
 	OfferCode          string        `json:"offerCode"`
 	OfferType          OfferType     `json:"type"`
+	ServerURL          string        `json:"serverURL"`                  // if the offer is an on-demand offer, this is the server url that will be called
 	Organization       *Organization `json:"organization" gorm:"-"`      // this is a virtual field
 	TotalSubscribers   int64         `json:"totalSubscribers" gorm:"-"`  // this is a virtual field
 	ActiveSubscribers  int64         `json:"activeSubscribers" gorm:"-"` // this is a virtual field
