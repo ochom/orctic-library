@@ -2,7 +2,8 @@ package database
 
 import "github.com/ochom/orctic-library/models"
 
-func getSchema() []any {
+// GetSchema return all models that can be migrated
+func GetSchema() []any {
 	return []any{
 		&models.Organization{},
 		&models.User{},
