@@ -1,8 +1,10 @@
 package models
 
 import (
+	"strings"
 	"sync"
 
+	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -68,4 +70,71 @@ func (ok *APIKey) AfterFind(tx *gorm.DB) (err error) {
 
 	wg.Wait()
 	return nil
+}
+
+// ReplyOutbox this is the API outbox for offerCSode replies
+type ReplyOutbox struct {
+	ID                string       `json:"id" gorm:"primaryKey"`
+	LinkID            string       `json:"linkID"`
+	OfferCode         string       `json:"offerCode"`
+	Mobile            string       `json:"mobile"`
+	Message           string       `json:"message"`
+	Status            OutboxStatus `json:"status"`
+	StatusDescription string       `json:"statusDescription"`
+	BaseModel
+}
+
+// BulkOutbox this is the API outbox for broadcast messages
+type BulkOutbox struct {
+	ID                string              `json:"id" gorm:"primaryKey"`
+	Type              CampaignMessageType `json:"type"`
+	SenderName        string              `json:"senderName"`
+	Message           string              `json:"message"`
+	Recipients        string              `json:"recipients"`
+	CallbackURL       string              `json:"callbackURL"`
+	Units             int                 `json:"units"`
+	Status            OutboxStatus        `json:"status"`
+	StatusDescription string              `json:"statusDescription"`
+	BaseModel
+}
+
+// GetRecipients ...
+func (bo *BulkOutbox) GetRecipients() []string {
+	switch bo.Type {
+	case BroadcastCampaignMessage:
+		numbers := []string{}
+		for _, number := range strings.Split(bo.Recipients, ",") {
+			numbers = append(numbers, strings.TrimSpace(number))
+		}
+		return numbers
+
+	default:
+		return []string{bo.Recipients}
+	}
+}
+
+// NewBroadcastOutbox ...
+func NewBroadcastOutbox(senderName, message string, recipients []string, callbackURL string, units int) *BulkOutbox {
+	return &BulkOutbox{
+		ID:          uuid.NewString(),
+		Type:        BroadcastCampaignMessage,
+		SenderName:  senderName,
+		Message:     message,
+		Recipients:  strings.Join(recipients, ","),
+		CallbackURL: callbackURL,
+		Units:       units,
+	}
+}
+
+// NewPersonalizedOutbox ...
+func NewPersonalizedOutbox(senderName, message, recipient, callbackURL string, units int) *BulkOutbox {
+	return &BulkOutbox{
+		ID:          uuid.NewString(),
+		Type:        PersonalizedCampaignMessage,
+		SenderName:  senderName,
+		Message:     message,
+		Recipients:  recipient,
+		CallbackURL: callbackURL,
+		Units:       units,
+	}
 }
