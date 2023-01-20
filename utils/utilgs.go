@@ -1,10 +1,10 @@
 package utils
 
 import (
+	"crypto/rand"
 	"fmt"
-	"math/rand"
+	"math/big"
 	"os"
-	"time"
 )
 
 var logger = NewLogger()
@@ -29,11 +29,20 @@ func GetEnvOrDefault(key string, defaultValue string) string {
 
 // GenerateOTP generates a random  OTP of a given size
 func GenerateOTP(size int) string {
-	rand.Seed(time.Now().UnixNano())
+
 	var letterRunes = []rune("0123456789")
 	b := make([]rune, size)
+
 	for i := range b {
-		b[i] = letterRunes[rand.Intn(len(letterRunes))]
+		index := func() int {
+			bigN, err := rand.Int(rand.Reader, big.NewInt(9))
+			if err != nil {
+				return 0
+			}
+			return int(bigN.Int64())
+		}()
+		b[i] = letterRunes[index]
 	}
+
 	return string(b)
 }
