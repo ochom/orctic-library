@@ -128,12 +128,15 @@ type Offer struct {
 	Description        string        `json:"description"`
 	DisplayName        string        `json:"displayName"`
 	DisplayDescription string        `json:"displayDescription"`
+	ShowInWeb          bool          `json:"showInWeb"`
 	DisplayIcon        string        `json:"displayIcon"`
 	ShortCode          string        `json:"shortcode"`
 	OfferCode          string        `json:"offerCode"`
 	OfferType          OfferType     `json:"type"`
-	Organization       *Organization `json:"organization" gorm:"-"`     // this is a virtual field
-	TotalSubscribers   int64         `json:"totalSubscribers" gorm:"-"` // this is a virtual field
+	ServerURL          string        `json:"serverURL"`                  // if the offer is an on-demand offer, this is the server url that will be called
+	Organization       *Organization `json:"organization" gorm:"-"`      // this is a virtual field
+	TotalSubscribers   int64         `json:"totalSubscribers" gorm:"-"`  // this is a virtual field
+	ActiveSubscribers  int64         `json:"activeSubscribers" gorm:"-"` // this is a virtual field
 	BaseModel
 }
 
@@ -193,13 +196,20 @@ func (o *Offer) AfterFind(tx *gorm.DB) (err error) {
 		defer wg.Done()
 
 		var totalSubscribers int64
+		var activeSubscribers int64
 		err = tx.Model(&Subscriber{}).Where("offer_id = ?", o.ID).Count(&totalSubscribers).Error
+		if err != nil {
+			return
+		}
+
+		err = tx.Model(&Subscriber{}).Where("offer_id = ? AND status = ?", o.ID, ActiveSubscription).Count(&activeSubscribers).Error
 		if err != nil {
 			return
 		}
 
 		mu.Lock()
 		o.TotalSubscribers = totalSubscribers
+		o.ActiveSubscribers = activeSubscribers
 		mu.Unlock()
 	}()
 

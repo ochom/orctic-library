@@ -4,10 +4,9 @@ go 1.18
 
 require (
 	github.com/dongri/phonenumber v0.0.0-20221125022035-545d57243f47
-	gorm.io/driver/mysql v1.4.3
-	gorm.io/driver/postgres v1.4.5
-	gorm.io/driver/sqlite v1.4.3
-	gorm.io/gorm v1.24.1
+	github.com/google/uuid v1.3.0
+	github.com/ochom/generic-gorm v0.0.8
+	gorm.io/gorm v1.24.2
 )
 
 require (
@@ -25,4 +24,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.15 // indirect
 	golang.org/x/crypto v0.0.0-20220722155217-630584e8d5aa // indirect
 	golang.org/x/text v0.3.7 // indirect
+	gorm.io/driver/mysql v1.4.4 // indirect
+	gorm.io/driver/postgres v1.4.5 // indirect
+	gorm.io/driver/sqlite v1.4.3 // indirect
 )
