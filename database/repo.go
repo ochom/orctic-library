@@ -3,21 +3,23 @@ package database
 import (
 	grm "github.com/ochom/generic-gorm"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
-// Repo ...
-type Repo struct {
-	DB *gorm.DB
+// Repository ...
+type Repository struct {
+	*gorm.DB
 }
 
 // NewRepository ...
-func NewRepository(pl grm.Platform, dsn string) (*Repo, error) {
-	db := grm.Init(pl, dsn)
-	if err := grm.Migrate(getSchema()...); err != nil {
+func NewRepository(pl grm.Platform, dsn string, level logger.LogLevel) (*Repository, error) {
+	sql := grm.Init(pl, dsn, level)
+	err := grm.Migrate(getSchema()...)
+	if err != nil {
 		return nil, err
 	}
 
-	return &Repo{
-		DB: db.DB,
+	return &Repository{
+		DB: sql.DB,
 	}, nil
 }
