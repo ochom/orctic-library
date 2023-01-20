@@ -92,8 +92,8 @@ github.com/mattn/go-isatty v0.0.7/go.mod h1:Iq45c/XA43vh69/j3iqttzPXn0bhXyGjM0Hd
 github.com/mattn/go-isatty v0.0.12/go.mod h1:cbi8OIDigv2wuxKPP5vlRcQ1OAZbq2CE4Kysco4FUpU=
 github.com/mattn/go-sqlite3 v1.14.15 h1:vfoHhTN1af61xCRSWzFIWzx2YskyMTwHLrExkBOjvxI=
 github.com/mattn/go-sqlite3 v1.14.15/go.mod h1:2eHXhiwb8IkHr+BDWZGa96P6+rkvnG63S2DGjv9HUNg=
-github.com/ochom/generic-gorm v0.0.8 h1:V9ooMNiP8/fnU62Dp3Qa6CjzgfSpDxK5buqTL5aiQs8=
-github.com/ochom/generic-gorm v0.0.8/go.mod h1:OoHOxtQCIH1MD4LGIm0yoZmy7l9a8UhJsbsMS5CsmoM=
+github.com/ochom/generic-gorm v0.0.9 h1:P/VH3I2CJ29FtmOYurtF1MMOpYeYSeMln9dGBetmwI4=
+github.com/ochom/generic-gorm v0.0.9/go.mod h1:OoHOxtQCIH1MD4LGIm0yoZmy7l9a8UhJsbsMS5CsmoM=
 github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
 github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
