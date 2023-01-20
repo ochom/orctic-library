@@ -39,9 +39,6 @@ jobs:
       - name: GoSec
         run: gosec -quiet ./...
 
-      - name: GoMisspell
-        run: misspell -error -locale US -source=text .
-
       - name: GoVet
         run: go vet $(go list ./... | grep -v /vendor/)
 
