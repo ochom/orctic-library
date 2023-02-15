@@ -89,24 +89,3 @@ const (
 	ActiveSubscription       SubscriptionStatus = "Active"
 	UnsubscribedSubscription SubscriptionStatus = "Unsubscribed"
 )
-
-// PaymentStatus ...
-type PaymentStatus string
-
-// PaymentStatuses ...
-const (
-	PendingPayment   PaymentStatus = "Pending"
-	FailedPayment    PaymentStatus = "Failed"
-	CanceledPayment  PaymentStatus = "Canceled"
-	CompletedPayment PaymentStatus = "Completed"
-)
-
-// PaymentSource ...
-type PaymentSource string
-
-// PaymentSources ...
-const (
-	STKPushPaymentSource PaymentSource = "STK Push"
-	MpesaPaybillSource   PaymentSource = "Mpesa Paybill"
-	BankChequeSource     PaymentSource = "Bank Cheque"
-)
