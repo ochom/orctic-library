@@ -11,7 +11,6 @@ type SenderName struct {
 	ID             string         `json:"id" gorm:"primaryKey"`
 	Name           string         `json:"name" gorm:"uniqueIndex"`
 	Description    string         `json:"description"`
-	PackageID      string         `json:"packageID"`
 	SenderNameType SenderNameType `json:"senderNameType"`
 	BaseModel
 }
