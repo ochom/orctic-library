@@ -59,3 +59,13 @@ func GetEnvFloat(key string, defaultValue float64) float64 {
 
 	return val
 }
+
+// MustGetEnv ...
+func MustGetEnv(key string) string {
+	value, ok := os.LookupEnv(key)
+	if !ok {
+		panic("Environment variable not found: " + key)
+	}
+
+	return value
+}
