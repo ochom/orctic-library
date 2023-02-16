@@ -1,46 +1,71 @@
 package utils
 
 import (
-	"encoding/json"
-	"fmt"
 	"os"
+	"strconv"
 )
 
 // GetEnv ...
-func GetEnv[T comparable](key string, defaultValue T) (res T) {
+func GetEnv(key string, defaultValue string) string {
 	value, ok := os.LookupEnv(key)
 	if !ok {
 		return defaultValue
 	}
 
-	val, err := ParseData[T]([]byte(value))
+	return value
+}
+
+// GetEnvInt ...
+func GetEnvInt(key string, defaultValue int) int {
+	value, ok := os.LookupEnv(key)
+	if !ok {
+		return defaultValue
+	}
+
+	val, err := strconv.Atoi(value)
 	if err != nil {
 		return defaultValue
 	}
-	return *val
+
+	return val
+}
+
+// GetEnvBool ...
+func GetEnvBool(key string, defaultValue bool) bool {
+	value, ok := os.LookupEnv(key)
+	if !ok {
+		return defaultValue
+	}
+
+	val, err := strconv.ParseBool(value)
+	if err != nil {
+		return defaultValue
+	}
+
+	return val
+}
+
+// GetEnvFloat ...
+func GetEnvFloat(key string, defaultValue float64) float64 {
+	value, ok := os.LookupEnv(key)
+	if !ok {
+		return defaultValue
+	}
+
+	val, err := strconv.ParseFloat(value, 64)
+	if err != nil {
+		return defaultValue
+	}
+
+	return val
 }
 
 // MustGetEnv ...
-func MustGetEnv[T comparable](key string) (res T) {
+func MustGetEnv(key string) string {
 	value, ok := os.LookupEnv(key)
 	if !ok {
-		NewLogger().Error(fmt.Sprintf("Environment variable %s is not set", key))
+		panic("Environment variable not found: " + key)
 	}
 
-	val, err := ParseData[T]([]byte(value))
-	if err != nil {
-		NewLogger().Error(fmt.Sprintf("Environment variable %s is wrongly set", key))
-	}
-	return *val
-}
-
-// ParseData ...
-func ParseData[T any](data []byte) (*T, error) {
-	var t T
-	if err := json.Unmarshal(data, &t); err != nil {
-		NewLogger().Error(fmt.Sprintf("Error parsing data: %s", err))
-		return nil, err
-	}
-
-	return &t, nil
+	return value
 }
