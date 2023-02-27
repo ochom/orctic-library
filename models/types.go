@@ -1,31 +1,12 @@
 package models
 
-// SenderNameType ...
-type SenderNameType string
-
-// SenderNameTypes ...
-const (
-	TransactionalSenderName SenderNameType = "Transactional"
-	PromotionalSenderName   SenderNameType = "Promotional"
-)
-
-// OfferType ...
-type OfferType string
-
-// OfferTypes ...
-const (
-	OnDemandOffer     OfferType = "On-demand"
-	SubscriptionOffer OfferType = "Subscription" // recurring
-)
-
 // CampaignType ...
 type CampaignType string
 
 // CampaignTypes ...
 const (
-	PremiumCampaign CampaignType = "Premium"
-	BulkCampaign    CampaignType = "Bulk"
-	DirectCampaign  CampaignType = "Direct"
+	PersonalizedCampaign CampaignType = "Personalized"
+	BroadcastCampaign    CampaignType = "Broadcast"
 )
 
 // CampaignStatus ...
@@ -39,22 +20,13 @@ const (
 	CanceledCampaign CampaignStatus = "Canceled"
 )
 
-// CampaignMessageType ...
-type CampaignMessageType string
+// OutboxType ...
+type OutboxType string
 
-// CampaignMessageTypes ...
+// OutboxTypes ...
 const (
-	PersonalizedCampaignMessage CampaignMessageType = "Personalized"
-	BroadcastCampaignMessage    CampaignMessageType = "Broadcast"
-)
-
-// SubscriptionSource ...
-type SubscriptionSource string
-
-// SubscriptionSources ...
-const (
-	SMSSubscriptionSource SubscriptionSource = "SMS"
-	WebSubscriptionSource SubscriptionSource = "Web"
+	TransactionalOutbox OutboxType = "Transactional"
+	PromotionalOutbox   OutboxType = "Promotional"
 )
 
 // OutboxSource ...
@@ -62,8 +34,8 @@ type OutboxSource string
 
 // SmsSources ...
 const (
-	APIOutboxSource OutboxSource = "API"
-	WebOutboxSource OutboxSource = "Web"
+	APIOutbox OutboxSource = "API"
+	WebOutbox OutboxSource = "Web"
 )
 
 // OutboxStatus ...
@@ -71,10 +43,19 @@ type OutboxStatus string
 
 // OutboxStatuses ...
 const (
-	PendingOutboxStatus  OutboxStatus = "Pending"
-	SentOutboxStatus     OutboxStatus = "Sent"
-	FailedOutboxStatus   OutboxStatus = "Failed"
-	CanceledOutboxStatus OutboxStatus = "Canceled"
+	PendingOutbox  OutboxStatus = "Pending"
+	SentOutbox     OutboxStatus = "Sent"
+	FailedOutbox   OutboxStatus = "Failed"
+	CanceledOutbox OutboxStatus = "Canceled"
+)
+
+// SubscriptionSource ...
+type SubscriptionSource string
+
+// SubscriptionSources ...
+const (
+	SMSSubscription SubscriptionSource = "SMS"
+	WebSubscription SubscriptionSource = "Web"
 )
 
 // SubscriptionStatus ...
