@@ -9,6 +9,15 @@ const (
 	BroadcastCampaign    CampaignType = "Broadcast"
 )
 
+// CampaignSource ...
+type CampaignSource string
+
+// CampaignSources ...
+const (
+	APICampaign CampaignSource = "API"
+	WebCampaign CampaignSource = "Web"
+)
+
 // CampaignStatus ...
 type CampaignStatus string
 

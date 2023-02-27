@@ -14,11 +14,27 @@ type Campaign struct {
 	ContactGroupID string         `json:"contactGroupID"` // for messages targeted to a contact group
 	SenderName     string         `json:"senderName"`     // this is the actual sender name/id
 	OfferCode      string         `json:"offerCode"`      // this is the offer code
-	CampaignType   CampaignType   `json:"campaignType"`
+	Source         CampaignSource `json:"source"`
+	Type           CampaignType   `json:"type"`
 	Status         CampaignStatus `json:"status"`
 	Template       string         `json:"template"`
 	SendAt         time.Time      `json:"sendAt"`
 	BaseModel
+}
+
+// NewCampaign ...
+func NewCampaign(source CampaignSource, campaignType CampaignType, senderName, offerCode, template, createdByID string, sendAt time.Time) *Campaign {
+	return &Campaign{
+		ID:         uuid.NewString(),
+		Source:     source,
+		Type:       campaignType,
+		SenderName: senderName,
+		OfferCode:  offerCode,
+		Template:   template,
+		SendAt:     sendAt,
+		Status:     PendingCampaign,
+		BaseModel:  BaseModel{CreatedByID: createdByID},
+	}
 }
 
 // AfterFind ...
@@ -51,9 +67,10 @@ type Outbox struct {
 }
 
 // NewOutbox ...
-func NewOutbox(outboxType OutboxType, units int, senderName, message, recipient string) *Outbox {
+func NewOutbox(outboxType OutboxType, units int, campaignID, senderName, message, recipient string) *Outbox {
 	return &Outbox{
 		ID:                uuid.NewString(),
+		CampaignID:        campaignID,
 		Type:              outboxType,
 		SenderName:        senderName,
 		Source:            WebOutbox,
@@ -66,8 +83,8 @@ func NewOutbox(outboxType OutboxType, units int, senderName, message, recipient 
 }
 
 // NewAPIOutbox ...
-func NewAPIOutbox(senderName, message, recipient, callbackURL string, outboxType OutboxType, units int) *Outbox {
-	outbox := NewOutbox(outboxType, units, senderName, message, recipient)
+func NewAPIOutbox(campaignID, senderName, message, recipient, callbackURL string, outboxType OutboxType, units int) *Outbox {
+	outbox := NewOutbox(outboxType, units, campaignID, senderName, message, recipient)
 	outbox.CallbackURL = callbackURL
 	outbox.Source = APIOutbox
 	return outbox
