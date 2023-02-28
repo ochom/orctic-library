@@ -1,12 +1,12 @@
 package models
 
-// Channel ...
-type Channel string
+// CampaignChannel ...
+type CampaignChannel string
 
 // Channels ...
 const (
-	BulkSMS    Channel = "BulkSMS"
-	PremiumSMS Channel = "PremiumSMS"
+	BulkSMS    CampaignChannel = "BulkSMS"
+	PremiumSMS CampaignChannel = "PremiumSMS"
 )
 
 // CampaignType is the type of campaign
@@ -18,13 +18,13 @@ const (
 	Promotional   CampaignType = "Promotional"
 )
 
-// Scheme  is the scheme of campaign
-type Scheme string
+// CampaignScheme  is the scheme of campaign
+type CampaignScheme string
 
 // Schemes ...
 const (
-	Personalized Scheme = "Personalized"
-	Broadcast    Scheme = "Broadcast"
+	Personalized CampaignScheme = "Personalized"
+	Broadcast    CampaignScheme = "Broadcast"
 )
 
 // CampaignSource ...
