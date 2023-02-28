@@ -14,9 +14,10 @@ type Campaign struct {
 	ContactGroupID string         `json:"contactGroupID"` // for messages targeted to a contact group
 	SenderName     string         `json:"senderName"`     // this is the actual sender name/id
 	OfferCode      string         `json:"offerCode"`      // this is the offer code
-	SenderNameType SenderNameType `json:"senderNameType"` // this is the sender name type (transactional, promotional)
+	Channel        Channel        `json:"channel"`        // bulk or premium
+	Scheme         Scheme         `json:"scheme"`         // personalized or broadcast
+	Type           CampaignType   `json:"type"`           // transactional or promotional
 	Source         CampaignSource `json:"source"`
-	Type           CampaignType   `json:"type"`
 	Status         CampaignStatus `json:"status"`
 	Template       string         `json:"template"`
 	SendAt         time.Time      `json:"sendAt"`
@@ -24,18 +25,18 @@ type Campaign struct {
 }
 
 // NewCampaign ...
-func NewCampaign(source CampaignSource, campaignType CampaignType, senderNameType SenderNameType, senderName, offerCode, template, createdByID string, sendAt time.Time) *Campaign {
+func NewCampaign(src CampaignSource, ct CampaignType, sc Scheme, senderName, offerCode, template, userID string, sendAt time.Time) *Campaign {
 	return &Campaign{
-		ID:             uuid.NewString(),
-		Source:         source,
-		Type:           campaignType,
-		SenderName:     senderName,
-		SenderNameType: senderNameType,
-		OfferCode:      offerCode,
-		Template:       template,
-		SendAt:         sendAt,
-		Status:         PendingCampaign,
-		BaseModel:      BaseModel{CreatedByID: createdByID},
+		ID:         uuid.NewString(),
+		Source:     src,
+		Type:       ct,
+		SenderName: senderName,
+		Scheme:     sc,
+		OfferCode:  offerCode,
+		Template:   template,
+		SendAt:     sendAt,
+		Status:     PendingCampaign,
+		BaseModel:  BaseModel{CreatedByID: userID},
 	}
 }
 
@@ -55,7 +56,6 @@ type Outbox struct {
 	LinkID            string         `json:"linkID"` // for reply outbox
 	BatchID           string         `json:"batchID"`
 	SenderName        string         `json:"senderName"` // should be the actual sender name/id
-	Source            OutboxSource   `json:"source"`
 	Recipient         string         `json:"recipient"`
 	Message           string         `json:"message"`
 	Units             int            `json:"units"` // number of units used for this outbox
@@ -73,7 +73,6 @@ func NewOutbox(units int, campaignID, senderName, message, recipient string) *Ou
 		ID:                uuid.NewString(),
 		CampaignID:        campaignID,
 		SenderName:        senderName,
-		Source:            WebOutbox,
 		Recipient:         recipient,
 		Message:           message,
 		Units:             units,
@@ -86,6 +85,5 @@ func NewOutbox(units int, campaignID, senderName, message, recipient string) *Ou
 func NewAPIOutbox(units int, campaignID, senderName, message, recipient, callbackURL string) *Outbox {
 	outbox := NewOutbox(units, campaignID, senderName, message, recipient)
 	outbox.CallbackURL = callbackURL
-	outbox.Source = APIOutbox
 	return outbox
 }

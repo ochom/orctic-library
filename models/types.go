@@ -1,21 +1,30 @@
 package models
 
-// CampaignType ...
+// Channel ...
+type Channel string
+
+// Channels ...
+const (
+	BulkSMS    Channel = "BulkSMS"
+	PremiumSMS Channel = "PremiumSMS"
+)
+
+// CampaignType is the type of campaign
 type CampaignType string
 
 // CampaignTypes ...
 const (
-	PersonalizedCampaign CampaignType = "Personalized"
-	BroadcastCampaign    CampaignType = "Broadcast"
+	Transactional CampaignType = "Transactional"
+	Promotional   CampaignType = "Promotional"
 )
 
-// SenderNameType ...
-type SenderNameType string
+// Scheme  is the scheme of campaign
+type Scheme string
 
-// SenderNameTypes ...
+// Schemes ...
 const (
-	Transactional SenderNameType = "Transactional"
-	Promotional   SenderNameType = "Promotional"
+	Personalized Scheme = "Personalized"
+	Broadcast    Scheme = "Broadcast"
 )
 
 // CampaignSource ...
@@ -36,15 +45,6 @@ const (
 	SentCampaign     CampaignStatus = "Sent"
 	FailedCampaign   CampaignStatus = "Failed"
 	CanceledCampaign CampaignStatus = "Canceled"
-)
-
-// OutboxSource ...
-type OutboxSource string
-
-// SmsSources ...
-const (
-	APIOutbox OutboxSource = "API"
-	WebOutbox OutboxSource = "Web"
 )
 
 // OutboxStatus ...
