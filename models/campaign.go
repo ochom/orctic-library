@@ -9,33 +9,33 @@ import (
 
 // Campaign ...
 type Campaign struct {
-	ID                 string             `json:"id"`
-	OrganizationID     string             `json:"organizationID"`
-	ContactGroupID     string             `json:"contactGroupID"`     // for messages targeted to a contact group
-	SenderName         string             `json:"senderName"`         // this is the actual sender name/id
-	OfferCode          string             `json:"offerCode"`          // this is the offer code
-	SenderNameNameType SenderNameNameType `json:"senderNameNameType"` // this is the sender name type (transactional, promotional)
-	Source             CampaignSource     `json:"source"`
-	Type               CampaignType       `json:"type"`
-	Status             CampaignStatus     `json:"status"`
-	Template           string             `json:"template"`
-	SendAt             time.Time          `json:"sendAt"`
+	ID             string         `json:"id"`
+	OrganizationID string         `json:"organizationID"`
+	ContactGroupID string         `json:"contactGroupID"` // for messages targeted to a contact group
+	SenderName     string         `json:"senderName"`     // this is the actual sender name/id
+	OfferCode      string         `json:"offerCode"`      // this is the offer code
+	SenderNameType SenderNameType `json:"senderNameType"` // this is the sender name type (transactional, promotional)
+	Source         CampaignSource `json:"source"`
+	Type           CampaignType   `json:"type"`
+	Status         CampaignStatus `json:"status"`
+	Template       string         `json:"template"`
+	SendAt         time.Time      `json:"sendAt"`
 	BaseModel
 }
 
 // NewCampaign ...
-func NewCampaign(source CampaignSource, campaignType CampaignType, senderNameNameType SenderNameNameType, senderName, offerCode, template, createdByID string, sendAt time.Time) *Campaign {
+func NewCampaign(source CampaignSource, campaignType CampaignType, senderNameType SenderNameType, senderName, offerCode, template, createdByID string, sendAt time.Time) *Campaign {
 	return &Campaign{
-		ID:                 uuid.NewString(),
-		Source:             source,
-		Type:               campaignType,
-		SenderName:         senderName,
-		SenderNameNameType: senderNameNameType,
-		OfferCode:          offerCode,
-		Template:           template,
-		SendAt:             sendAt,
-		Status:             PendingCampaign,
-		BaseModel:          BaseModel{CreatedByID: createdByID},
+		ID:             uuid.NewString(),
+		Source:         source,
+		Type:           campaignType,
+		SenderName:     senderName,
+		SenderNameType: senderNameType,
+		OfferCode:      offerCode,
+		Template:       template,
+		SendAt:         sendAt,
+		Status:         PendingCampaign,
+		BaseModel:      BaseModel{CreatedByID: createdByID},
 	}
 }
 

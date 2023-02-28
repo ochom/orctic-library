@@ -9,13 +9,13 @@ const (
 	BroadcastCampaign    CampaignType = "Broadcast"
 )
 
-// SenderNameNameType ...
-type SenderNameNameType string
+// SenderNameType ...
+type SenderNameType string
 
-// SenderNameNameTypes ...
+// SenderNameTypes ...
 const (
-	Transactional SenderNameNameType = "Transactional"
-	Promotional   SenderNameNameType = "Promotional"
+	Transactional SenderNameType = "Transactional"
+	Promotional   SenderNameType = "Promotional"
 )
 
 // CampaignSource ...
