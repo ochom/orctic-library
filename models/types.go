@@ -9,6 +9,15 @@ const (
 	BroadcastCampaign    CampaignType = "Broadcast"
 )
 
+// SenderNameNameType ...
+type SenderNameNameType string
+
+// SenderNameNameTypes ...
+const (
+	Transactional SenderNameNameType = "Transactional"
+	Promotional   SenderNameNameType = "Promotional"
+)
+
 // CampaignSource ...
 type CampaignSource string
 
@@ -27,15 +36,6 @@ const (
 	SentCampaign     CampaignStatus = "Sent"
 	FailedCampaign   CampaignStatus = "Failed"
 	CanceledCampaign CampaignStatus = "Canceled"
-)
-
-// OutboxType ...
-type OutboxType string
-
-// OutboxTypes ...
-const (
-	TransactionalOutbox OutboxType = "Transactional"
-	PromotionalOutbox   OutboxType = "Promotional"
 )
 
 // OutboxSource ...

@@ -9,31 +9,33 @@ import (
 
 // Campaign ...
 type Campaign struct {
-	ID             string         `json:"id"`
-	OrganizationID string         `json:"organizationID"`
-	ContactGroupID string         `json:"contactGroupID"` // for messages targeted to a contact group
-	SenderName     string         `json:"senderName"`     // this is the actual sender name/id
-	OfferCode      string         `json:"offerCode"`      // this is the offer code
-	Source         CampaignSource `json:"source"`
-	Type           CampaignType   `json:"type"`
-	Status         CampaignStatus `json:"status"`
-	Template       string         `json:"template"`
-	SendAt         time.Time      `json:"sendAt"`
+	ID                 string             `json:"id"`
+	OrganizationID     string             `json:"organizationID"`
+	ContactGroupID     string             `json:"contactGroupID"`     // for messages targeted to a contact group
+	SenderName         string             `json:"senderName"`         // this is the actual sender name/id
+	OfferCode          string             `json:"offerCode"`          // this is the offer code
+	SenderNameNameType SenderNameNameType `json:"senderNameNameType"` // this is the sender name type (transactional, promotional)
+	Source             CampaignSource     `json:"source"`
+	Type               CampaignType       `json:"type"`
+	Status             CampaignStatus     `json:"status"`
+	Template           string             `json:"template"`
+	SendAt             time.Time          `json:"sendAt"`
 	BaseModel
 }
 
 // NewCampaign ...
-func NewCampaign(source CampaignSource, campaignType CampaignType, senderName, offerCode, template, createdByID string, sendAt time.Time) *Campaign {
+func NewCampaign(source CampaignSource, campaignType CampaignType, senderNameNameType SenderNameNameType, senderName, offerCode, template, createdByID string, sendAt time.Time) *Campaign {
 	return &Campaign{
-		ID:         uuid.NewString(),
-		Source:     source,
-		Type:       campaignType,
-		SenderName: senderName,
-		OfferCode:  offerCode,
-		Template:   template,
-		SendAt:     sendAt,
-		Status:     PendingCampaign,
-		BaseModel:  BaseModel{CreatedByID: createdByID},
+		ID:                 uuid.NewString(),
+		Source:             source,
+		Type:               campaignType,
+		SenderName:         senderName,
+		SenderNameNameType: senderNameNameType,
+		OfferCode:          offerCode,
+		Template:           template,
+		SendAt:             sendAt,
+		Status:             PendingCampaign,
+		BaseModel:          BaseModel{CreatedByID: createdByID},
 	}
 }
 
@@ -53,7 +55,6 @@ type Outbox struct {
 	LinkID            string         `json:"linkID"` // for reply outbox
 	BatchID           string         `json:"batchID"`
 	SenderName        string         `json:"senderName"` // should be the actual sender name/id
-	Type              OutboxType     `json:"type"`
 	Source            OutboxSource   `json:"source"`
 	Recipient         string         `json:"recipient"`
 	Message           string         `json:"message"`
@@ -67,11 +68,10 @@ type Outbox struct {
 }
 
 // NewOutbox ...
-func NewOutbox(outboxType OutboxType, units int, campaignID, senderName, message, recipient string) *Outbox {
+func NewOutbox(units int, campaignID, senderName, message, recipient string) *Outbox {
 	return &Outbox{
 		ID:                uuid.NewString(),
 		CampaignID:        campaignID,
-		Type:              outboxType,
 		SenderName:        senderName,
 		Source:            WebOutbox,
 		Recipient:         recipient,
@@ -83,8 +83,8 @@ func NewOutbox(outboxType OutboxType, units int, campaignID, senderName, message
 }
 
 // NewAPIOutbox ...
-func NewAPIOutbox(campaignID, senderName, message, recipient, callbackURL string, outboxType OutboxType, units int) *Outbox {
-	outbox := NewOutbox(outboxType, units, campaignID, senderName, message, recipient)
+func NewAPIOutbox(units int, campaignID, senderName, message, recipient, callbackURL string) *Outbox {
+	outbox := NewOutbox(units, campaignID, senderName, message, recipient)
 	outbox.CallbackURL = callbackURL
 	outbox.Source = APIOutbox
 	return outbox
