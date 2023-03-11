@@ -54,8 +54,7 @@ type Outbox struct {
 	ID                string         `json:"id"`
 	OrganizationID    string         `json:"organizationID"`
 	CampaignID        string         `json:"campaignID"`
-	LinkID            string         `json:"linkID"` // for reply outbox
-	BatchID           string         `json:"batchID"`
+	LinkID            string         `json:"linkID"`     // for reply outbox
 	SenderName        string         `json:"senderName"` // should be the actual sender name/id
 	Recipient         string         `json:"recipient"`
 	Message           string         `json:"message"`
