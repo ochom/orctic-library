@@ -34,3 +34,19 @@ func ParseData[T any](data []byte) (*T, error) {
 
 	return &t, nil
 }
+
+// GetMessageCost ...
+func GetMessageCost(message string) int {
+	pageSize := 160
+	messageLength := len(message)
+
+	if messageLength <= pageSize {
+		return 1
+	}
+
+	if messageLength%pageSize == 0 {
+		return messageLength / pageSize
+	}
+
+	return (messageLength / pageSize) + 1
+}
