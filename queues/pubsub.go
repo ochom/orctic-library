@@ -1,6 +1,7 @@
-package pubsub
+package queues
 
 import (
+	"log"
 	"time"
 
 	"github.com/ochom/orctic-library/utils"
@@ -19,8 +20,10 @@ type Pubsub interface {
 func New() Pubsub {
 	provider := utils.GetEnv("PUBSUB_PROVIDER", "rabbitmq")
 	if provider == "quickmq" {
-		return NewRabbitMQ()
+		log.Println("Using QuickMQ as pubsub provider")
+		return NewQuickMQ()
 	}
 
+	log.Println("Using RabbitMQ as pubsub provider")
 	return NewRabbitMQ()
 }
