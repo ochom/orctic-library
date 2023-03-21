@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"github.com/ochom/orctic-library/utils"
 	"gorm.io/gorm"
 )
 
@@ -68,22 +69,22 @@ type Outbox struct {
 }
 
 // NewOutbox ...
-func NewOutbox(units int, campaignID, senderName, message, recipient string) *Outbox {
+func NewOutbox(campaignID, senderName, message, recipient string) *Outbox {
 	return &Outbox{
 		ID:                uuid.NewString(),
 		CampaignID:        campaignID,
 		SenderName:        senderName,
 		Recipient:         recipient,
 		Message:           message,
-		Units:             units,
+		Units:             utils.GetMessageCost(message),
 		Status:            PendingOutbox,
 		StatusDescription: "Outbox is pending to be sent",
 	}
 }
 
 // NewAPIOutbox ...
-func NewAPIOutbox(units int, campaignID, senderName, message, recipient, callbackURL string) *Outbox {
-	outbox := NewOutbox(units, campaignID, senderName, message, recipient)
+func NewAPIOutbox(campaignID, senderName, message, recipient, callbackURL string) *Outbox {
+	outbox := NewOutbox(campaignID, senderName, message, recipient)
 	outbox.CallbackURL = callbackURL
 	return outbox
 }
