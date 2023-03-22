@@ -6,7 +6,7 @@ require (
 	github.com/dongri/phonenumber v0.0.0-20221125022035-545d57243f47
 	github.com/google/uuid v1.3.0
 	github.com/ochom/pubsub v0.0.27
-	github.com/ochom/quickmq v0.0.7
+	github.com/ochom/quickmq v0.0.8
 	gorm.io/gorm v1.24.6
 )
 
