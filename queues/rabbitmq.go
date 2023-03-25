@@ -25,14 +25,16 @@ func NewRabbitMQ() *RabbitMQ {
 }
 
 // Publish publishes a message to a channel
-func (r *RabbitMQ) Publish(channel string, message []byte, delay time.Duration) error {
+func (r *RabbitMQ) Publish(channel string, message []byte) error {
 	channel = fmt.Sprintf("%s-%s", r.prefix, channel)
 	p := pubsub.NewPublisher(r.url, channel)
-	if delay == 0 {
+	return p.Publish(message)
+}
 
-		return p.Publish(message)
-	}
-
+// PublishWithDelay publishes a message to a channel with a delay
+func (r *RabbitMQ) PublishWithDelay(channel string, message []byte, delay time.Duration) error {
+	channel = fmt.Sprintf("%s-%s", r.prefix, channel)
+	p := pubsub.NewPublisher(r.url, channel)
 	return p.PublishWithDelay(message, delay)
 }
 
