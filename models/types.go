@@ -56,6 +56,7 @@ const (
 	SentOutbox     OutboxStatus = "Sent"
 	FailedOutbox   OutboxStatus = "Failed"
 	CanceledOutbox OutboxStatus = "Canceled"
+	DeliveryReport OutboxStatus = "DeliveryReport"
 )
 
 // SubscriptionSource ...
