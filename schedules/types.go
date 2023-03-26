@@ -1,30 +1,12 @@
-package models
+package schedules
 
-// CampaignChannel ...
-type CampaignChannel string
+// CampaignType ...
+type CampaignType string
 
 // Channels ...
 const (
-	BulkSMS    CampaignChannel = "BulkSMS"
-	PremiumSMS CampaignChannel = "PremiumSMS"
-)
-
-// CampaignType is the type of campaign
-type CampaignType string
-
-// CampaignTypes ...
-const (
-	Transactional CampaignType = "Transactional"
-	Promotional   CampaignType = "Promotional"
-)
-
-// CampaignScheme  is the scheme of campaign
-type CampaignScheme string
-
-// Schemes ...
-const (
-	Personalized CampaignScheme = "Personalized"
-	Broadcast    CampaignScheme = "Broadcast"
+	BulkSMS    CampaignType = "BulkSMS"
+	PremiumSMS CampaignType = "PremiumSMS"
 )
 
 // CampaignSource ...
@@ -34,17 +16,6 @@ type CampaignSource string
 const (
 	APICampaign CampaignSource = "API"
 	WebCampaign CampaignSource = "Web"
-)
-
-// CampaignStatus ...
-type CampaignStatus string
-
-// CampaignStatuses ...
-const (
-	PendingCampaign  CampaignStatus = "Pending"
-	SentCampaign     CampaignStatus = "Sent"
-	FailedCampaign   CampaignStatus = "Failed"
-	CanceledCampaign CampaignStatus = "Canceled"
 )
 
 // OutboxStatus ...

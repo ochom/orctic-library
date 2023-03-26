@@ -1,4 +1,4 @@
-package models
+package schedules
 
 import (
 	"time"
@@ -10,44 +10,33 @@ import (
 
 // Campaign ...
 type Campaign struct {
-	ID             string          `json:"id"`
-	OrganizationID string          `json:"organizationID"`
-	ContactGroupID string          `json:"contactGroupID"` // for messages targeted to a contact group
-	SenderName     string          `json:"senderName"`     // this is the actual sender name/id
-	OfferCode      string          `json:"offerCode"`      // this is the offer code
-	Channel        CampaignChannel `json:"channel"`        // bulk or premium
-	Scheme         CampaignScheme  `json:"scheme"`         // personalized or broadcast
-	Type           CampaignType    `json:"type"`           // transactional or promotional
-	Source         CampaignSource  `json:"source"`
-	Status         CampaignStatus  `json:"status"`
-	Template       string          `json:"template"`
-	SendAt         time.Time       `json:"sendAt"`
-	BaseModel
+	ID             string         `json:"id"`
+	OrganizationID string         `json:"organizationID"`
+	ContactGroupID string         `json:"contactGroupID"` // for messages targeted to a contact group
+	SenderName     string         `json:"senderName"`     // this is the actual sender name/id
+	OfferCode      string         `json:"offerCode"`      // this is the offer code
+	OfferName      string         `json:"offerName"`      // this is the offer name
+	OfferShortCode string         `json:"offerShortCode"` // this is the offer shortcode
+	Type           CampaignType   `json:"type"`           // transactional or promotional
+	Source         CampaignSource `json:"source"`
+	Status         OutboxStatus   `json:"status"`
+	Template       string         `json:"template"`
+	SendAt         time.Time      `json:"sendAt"`
+	CreatedAt      time.Time      `json:"createdAt"`
+	CreatedByID    string         `json:"createdByID"`
 }
 
 // NewCampaign ...
-func NewCampaign(src CampaignSource, ch CampaignChannel, ct CampaignType, sc CampaignScheme, senderName, offerCode, template, userID string, sendAt time.Time) *Campaign {
+func NewCampaign(src CampaignSource, ct CampaignType, senderName, offerCode string, sendAt time.Time) *Campaign {
 	return &Campaign{
 		ID:         uuid.NewString(),
 		SenderName: senderName,
 		OfferCode:  offerCode,
-		Channel:    ch,
-		Scheme:     sc,
 		Type:       ct,
-		Template:   template,
 		SendAt:     sendAt,
 		Source:     src,
-		Status:     PendingCampaign,
-		BaseModel:  BaseModel{CreatedByID: userID},
+		Status:     PendingOutbox,
 	}
-}
-
-// AfterFind ...
-func (c *Campaign) AfterFind(tx *gorm.DB) error {
-	if err := tx.Model(&User{}).Where("id = ?", c.CreatedByID).First(&c.CreatedBy).Error; err != nil {
-		return err
-	}
-	return nil
 }
 
 // Outbox ...
@@ -57,9 +46,10 @@ type Outbox struct {
 	CampaignID        string         `json:"campaignID"`
 	LinkID            string         `json:"linkID"`     // for reply outbox
 	SenderName        string         `json:"senderName"` // should be the actual sender name/id
+	OfferCode         string         `json:"offerCode"`  // this is the offer code
 	Recipient         string         `json:"recipient"`
 	Message           string         `json:"message"`
-	Units             int            `json:"units"` // number of units used for this outbox
+	Cost              int            `json:"cost"` // number of units used for this outbox
 	Status            OutboxStatus   `json:"status"`
 	StatusDescription string         `json:"statusDescription"`
 	CallbackURL       string         `json:"callbackURL"` // for outbox sent from API
@@ -76,7 +66,7 @@ func NewOutbox(campaignID, senderName, message, recipient string) *Outbox {
 		SenderName:        senderName,
 		Recipient:         recipient,
 		Message:           message,
-		Units:             utils.GetMessageCost(message),
+		Cost:              utils.GetMessageCost(message),
 		Status:            PendingOutbox,
 		StatusDescription: "Outbox is pending to be sent",
 	}
