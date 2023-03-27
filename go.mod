@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/dongri/phonenumber v0.0.0-20221125022035-545d57243f47
 	github.com/google/uuid v1.3.0
-	github.com/ochom/pubsub v0.0.27
+	github.com/ochom/pubsub v0.0.29
 	gorm.io/gorm v1.24.6
 )
 

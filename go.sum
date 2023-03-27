@@ -10,8 +10,8 @@ github.com/jinzhu/now v1.1.5/go.mod h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
-github.com/ochom/pubsub v0.0.27 h1:CRffk6JCUolT4kPVZkpSddORUcg3I+pkyJHJq19GEnk=
-github.com/ochom/pubsub v0.0.27/go.mod h1:dLV87fioMQWOUaQkA2jxexzyF3D2co7b/vHhLelFtSQ=
+github.com/ochom/pubsub v0.0.29 h1:CEnjn0G9T8/TCZAWmTIh0ZcWkF5k1ZY/GiteGdZKwfA=
+github.com/ochom/pubsub v0.0.29/go.mod h1:dLV87fioMQWOUaQkA2jxexzyF3D2co7b/vHhLelFtSQ=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rabbitmq/amqp091-go v1.5.0 h1:VouyHPBu1CrKyJVfteGknGOGCzmOz0zcv/tONLkb7rg=
 github.com/rabbitmq/amqp091-go v1.5.0/go.mod h1:JsV0ofX5f1nwOGafb8L5rBItt9GyhfQfcJj+oyz0dGg=

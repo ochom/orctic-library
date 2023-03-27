@@ -39,8 +39,8 @@ func (r *RabbitMQ) PublishWithDelay(channel string, message []byte, delay time.D
 }
 
 // Subscribe subscribes to a channel
-func (r *RabbitMQ) Subscribe(channel string, handler func([]byte)) error {
+func (r *RabbitMQ) Subscribe(channel string, handler func([]byte), lazy bool) error {
 	channel = fmt.Sprintf("%s-%s", r.prefix, channel)
 	c := pubsub.NewConsumer(r.url, channel)
-	return c.Consume(handler)
+	return c.Consume(handler, lazy)
 }
