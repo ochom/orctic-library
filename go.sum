@@ -3,6 +3,8 @@ github.com/dongri/phonenumber v0.0.0-20221125022035-545d57243f47 h1:QFNXUIveefvs
 github.com/dongri/phonenumber v0.0.0-20221125022035-545d57243f47/go.mod h1:G6eIK4UOT7iAcInROB6it2kRqlpR1U1GD2gqR9U5bGs=
 github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
 github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
+github.com/gorilla/websocket v1.5.0 h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWmnc=
+github.com/gorilla/websocket v1.5.0/go.mod h1:YR8l580nyteQvAITg2hZ9XVh4b55+EU/adAjf1fMHhE=
 github.com/jinzhu/inflection v1.0.0 h1:K317FqzuhWc8YvSVlFMCCUb36O/S9MCKRDI7QkRKD/E=
 github.com/jinzhu/inflection v1.0.0/go.mod h1:h+uFLlag+Qp1Va5pdKtLDYj+kHp5pxUVkryuEj+Srlc=
 github.com/jinzhu/now v1.1.5 h1:/o9tlHleP7gOFmsnYNz3RGnqzefHA47wQpKrrdTIwXQ=
@@ -12,6 +14,8 @@ github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
 github.com/ochom/pubsub v0.0.27 h1:CRffk6JCUolT4kPVZkpSddORUcg3I+pkyJHJq19GEnk=
 github.com/ochom/pubsub v0.0.27/go.mod h1:dLV87fioMQWOUaQkA2jxexzyF3D2co7b/vHhLelFtSQ=
+github.com/ochom/quickmq v0.0.8 h1:Y+o2drp8WqnenJCwvKhoBnWlSNzPbUQp6MBslFycNIw=
+github.com/ochom/quickmq v0.0.8/go.mod h1:YEvpDCokujon1jhCDv3RmTUpJEikUyM2qMaN+0lTyF4=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rabbitmq/amqp091-go v1.5.0 h1:VouyHPBu1CrKyJVfteGknGOGCzmOz0zcv/tONLkb7rg=
 github.com/rabbitmq/amqp091-go v1.5.0/go.mod h1:JsV0ofX5f1nwOGafb8L5rBItt9GyhfQfcJj+oyz0dGg=
