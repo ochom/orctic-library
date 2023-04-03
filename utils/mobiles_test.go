@@ -36,6 +36,27 @@ func TestParseMobile(t *testing.T) {
 			},
 			want: "254712345678",
 		},
+		{
+			name: "should return a valid mobile number",
+			args: args{
+				mobile: "112345678",
+			},
+			want: "254112345678",
+		},
+		{
+			name: "should return a valid mobile number",
+			args: args{
+				mobile: "0112345678",
+			},
+			want: "254112345678",
+		},
+		{
+			name: "should return a valid mobile number",
+			args: args{
+				mobile: "+254112345678",
+			},
+			want: "254112345678",
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
