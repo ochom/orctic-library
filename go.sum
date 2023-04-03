@@ -1,6 +1,4 @@
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/dongri/phonenumber v0.0.0-20221125022035-545d57243f47 h1:QFNXUIveefvsLQrmC2j/CunUEkhmTFLyI3WBBy3AQJk=
-github.com/dongri/phonenumber v0.0.0-20221125022035-545d57243f47/go.mod h1:G6eIK4UOT7iAcInROB6it2kRqlpR1U1GD2gqR9U5bGs=
 github.com/google/uuid v1.3.0 h1:t6JiXgmwXMjEs8VusXIJk2BXHsn+wx8BZdTaoZ5fu7I=
 github.com/google/uuid v1.3.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
 github.com/gorilla/websocket v1.5.0 h1:PPwGk2jz7EePpoHN/+ClbZu8SPxiqlu12wZP/3sWmnc=
@@ -12,8 +10,8 @@ github.com/jinzhu/now v1.1.5/go.mod h1:d3SSVoowX0Lcu0IBviAWJpolVfI5UJVZZ7cO71lE/
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
 github.com/kr/text v0.1.0/go.mod h1:4Jbv+DJW3UT/LiOwJeYQe1efqtUx/iVham/4vfdArNI=
-github.com/ochom/pubsub v0.0.27 h1:CRffk6JCUolT4kPVZkpSddORUcg3I+pkyJHJq19GEnk=
-github.com/ochom/pubsub v0.0.27/go.mod h1:dLV87fioMQWOUaQkA2jxexzyF3D2co7b/vHhLelFtSQ=
+github.com/ochom/pubsub v0.0.30 h1:Q6/1GnfyLYu3c+hyjp6XEpI0SVxMGdsqmyf7rWlCOPc=
+github.com/ochom/pubsub v0.0.30/go.mod h1:dLV87fioMQWOUaQkA2jxexzyF3D2co7b/vHhLelFtSQ=
 github.com/ochom/quickmq v0.0.8 h1:Y+o2drp8WqnenJCwvKhoBnWlSNzPbUQp6MBslFycNIw=
 github.com/ochom/quickmq v0.0.8/go.mod h1:YEvpDCokujon1jhCDv3RmTUpJEikUyM2qMaN+0lTyF4=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
