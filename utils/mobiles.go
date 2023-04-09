@@ -1,6 +1,8 @@
 package utils
 
-import "strings"
+import (
+	"strings"
+)
 
 // ParseMobile ...
 func ParseMobile(mobile string) string {

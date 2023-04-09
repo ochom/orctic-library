@@ -20,10 +20,11 @@ type Campaign struct {
 	Type           CampaignType   `json:"type"`           // transactional or promotional
 	Source         CampaignSource `json:"source"`
 	Status         OutboxStatus   `json:"status"`
-	Template       string         `json:"template"`
+	Message        string         `json:"message"` // this is the template to be used for premium sms
 	SendAt         time.Time      `json:"sendAt"`
 	CreatedAt      time.Time      `json:"createdAt"`
 	CreatedByID    string         `json:"createdByID"`
+	IsPersonalized bool           `json:"isPersonalized"` // this tag determines if the messages will be sent in batches or individually
 }
 
 // NewCampaign ...
@@ -44,6 +45,7 @@ type Outbox struct {
 	ID                string         `json:"id"`
 	OrganizationID    string         `json:"organizationID"`
 	CampaignID        string         `json:"campaignID"`
+	BatchID           string         `json:"batchID"`    // for batched outbox
 	LinkID            string         `json:"linkID"`     // for reply outbox
 	SenderName        string         `json:"senderName"` // should be the actual sender name/id
 	OfferCode         string         `json:"offerCode"`  // this is the offer code
