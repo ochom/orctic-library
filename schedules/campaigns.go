@@ -20,10 +20,11 @@ type Campaign struct {
 	Type           CampaignType   `json:"type"`           // transactional or promotional
 	Source         CampaignSource `json:"source"`
 	Status         OutboxStatus   `json:"status"`
-	Template       string         `json:"template"`
+	Message        string         `json:"message"` // this is the template to be used for premium sms
 	SendAt         time.Time      `json:"sendAt"`
 	CreatedAt      time.Time      `json:"createdAt"`
 	CreatedByID    string         `json:"createdByID"`
+	IsPersonalized bool           `json:"isPersonalized"` // this tag determines if the messages will be sent in batches or individually
 }
 
 // NewCampaign ...
@@ -53,6 +54,7 @@ type Outbox struct {
 	Status            OutboxStatus   `json:"status"`
 	StatusDescription string         `json:"statusDescription"`
 	CallbackURL       string         `json:"callbackURL"` // for outbox sent from API
+	Retries           int            `json:"retries" gorm:"default:0"`
 	CreatedAt         time.Time      `json:"createdAt"`
 	UpdatedAt         time.Time      `json:"updatedAt"`
 	DeletedAt         gorm.DeletedAt `json:"deletedAt"`
