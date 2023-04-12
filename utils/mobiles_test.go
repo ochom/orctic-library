@@ -2,7 +2,6 @@ package utils_test
 
 import (
 	"testing"
-	"time"
 
 	"github.com/ochom/orctic-library/utils"
 )
@@ -66,14 +65,4 @@ func TestParseMobile(t *testing.T) {
 			}
 		})
 	}
-}
-
-func TestParseMobileTimeTaken(t *testing.T) {
-	count := 2000000
-	start := time.Now()
-	for i := 0; i < count; i++ {
-		_ = utils.ParseMobile("0712345678")
-	}
-	elapsed := time.Since(start)
-	t.Errorf("Time taken by V1: %s", elapsed)
 }
