@@ -45,7 +45,6 @@ type Outbox struct {
 	ID                string         `json:"id"`
 	OrganizationID    string         `json:"organizationID"`
 	CampaignID        string         `json:"campaignID"`
-	BatchID           string         `json:"batchID"`    // for batched outbox
 	LinkID            string         `json:"linkID"`     // for reply outbox
 	SenderName        string         `json:"senderName"` // should be the actual sender name/id
 	OfferCode         string         `json:"offerCode"`  // this is the offer code
@@ -55,6 +54,7 @@ type Outbox struct {
 	Status            OutboxStatus   `json:"status"`
 	StatusDescription string         `json:"statusDescription"`
 	CallbackURL       string         `json:"callbackURL"` // for outbox sent from API
+	Retries           int            `json:"retries" gorm:"default:0"`
 	CreatedAt         time.Time      `json:"createdAt"`
 	UpdatedAt         time.Time      `json:"updatedAt"`
 	DeletedAt         gorm.DeletedAt `json:"deletedAt"`
