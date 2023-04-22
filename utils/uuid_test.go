@@ -10,6 +10,5 @@ func TestNewID(t *testing.T) {
 			t.Errorf("ID %s is not unique", id)
 		}
 		m[id] = true
-		t.Errorf("ID %s is unique: %d", id, len(id))
 	}
 }
