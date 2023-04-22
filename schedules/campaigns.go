@@ -3,7 +3,6 @@ package schedules
 import (
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/ochom/orctic-library/utils"
 	"gorm.io/gorm"
 )
@@ -30,7 +29,7 @@ type Campaign struct {
 // NewCampaign ...
 func NewCampaign(src CampaignSource, ct CampaignType, senderName, offerCode string, sendAt time.Time) *Campaign {
 	return &Campaign{
-		ID:         uuid.NewString(),
+		ID:         utils.NewID(),
 		SenderName: senderName,
 		OfferCode:  offerCode,
 		Type:       ct,
@@ -63,7 +62,7 @@ type Outbox struct {
 // NewOutbox ...
 func NewOutbox(campaignID, senderName, message, recipient string) *Outbox {
 	return &Outbox{
-		ID:                uuid.NewString(),
+		ID:                utils.NewID(),
 		CampaignID:        campaignID,
 		SenderName:        senderName,
 		Recipient:         recipient,

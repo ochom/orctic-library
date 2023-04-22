@@ -3,7 +3,7 @@ package schedules
 import (
 	"time"
 
-	"github.com/google/uuid"
+	"github.com/ochom/orctic-library/utils"
 	"gorm.io/gorm"
 )
 
@@ -24,7 +24,7 @@ type Subscriber struct {
 // NewSubscriber ...
 func NewSubscriber(mobile, offerID, offerCode string) *Subscriber {
 	return &Subscriber{
-		ID:                uuid.NewString(),
+		ID:                utils.NewID(),
 		Mobile:            mobile,
 		OfferID:           offerID,
 		OfferCode:         offerCode,
