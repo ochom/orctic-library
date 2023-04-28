@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/ochom/orctic-library/utils"
+	"github.com/ochom/uuid"
 	"gorm.io/gorm"
 )
 
@@ -29,7 +30,7 @@ type Campaign struct {
 // NewCampaign ...
 func NewCampaign(src CampaignSource, ct CampaignType, senderName, offerCode string, sendAt time.Time) *Campaign {
 	return &Campaign{
-		ID:         utils.NewID(),
+		ID:         uuid.NewString(),
 		SenderName: senderName,
 		OfferCode:  offerCode,
 		Type:       ct,
@@ -62,7 +63,7 @@ type Outbox struct {
 // NewOutbox ...
 func NewOutbox(campaignID, senderName, message, recipient string) *Outbox {
 	return &Outbox{
-		ID:                utils.NewID(),
+		ID:                uuid.NewString(),
 		CampaignID:        campaignID,
 		SenderName:        senderName,
 		Recipient:         recipient,
