@@ -3,6 +3,11 @@ package schedules
 // CampaignType ...
 type CampaignType string
 
+// String ...
+func (c CampaignType) String() string {
+	return string(c)
+}
+
 // Channels ...
 const (
 	BulkSMS    CampaignType = "BulkSMS"
@@ -12,6 +17,11 @@ const (
 // CampaignSource ...
 type CampaignSource string
 
+// String ...
+func (c CampaignSource) String() string {
+	return string(c)
+}
+
 // CampaignSources ...
 const (
 	APICampaign CampaignSource = "API"
@@ -20,6 +30,11 @@ const (
 
 // OutboxStatus ...
 type OutboxStatus string
+
+// String ...
+func (o OutboxStatus) String() string {
+	return string(o)
+}
 
 // OutboxStatuses ...
 const (

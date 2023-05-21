@@ -1,6 +1,7 @@
 package schedules
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/ochom/orctic-library/utils"
@@ -17,7 +18,7 @@ type Campaign struct {
 	OfferCode      string         `json:"offerCode"`      // this is the offer code
 	OfferName      string         `json:"offerName"`      // this is the offer name
 	OfferShortCode string         `json:"offerShortCode"` // this is the offer shortcode
-	Type           CampaignType   `json:"type"`           // transactional or promotional
+	Type           CampaignType   `json:"type"`
 	Source         CampaignSource `json:"source"`
 	Status         OutboxStatus   `json:"status"`
 	Message        string         `json:"message"` // this is the template to be used for premium sms
@@ -25,6 +26,16 @@ type Campaign struct {
 	CreatedAt      time.Time      `json:"createdAt"`
 	CreatedByID    string         `json:"createdByID"`
 	IsPersonalized bool           `json:"isPersonalized"` // this tag determines if the messages will be sent in batches or individually
+}
+
+// CSVHeader ...
+func (c *Campaign) CSVHeader() string {
+	return "ID,OrganizationID,SenderName,OfferCode,OfferName,OfferShortCode,Type,Source,Status,SendAt,CreatedAt"
+}
+
+// ToCsvString ...
+func (c *Campaign) ToCsvString() string {
+	return c.ID + "," + c.OrganizationID + "," + c.SenderName + "," + c.OfferCode + "," + c.OfferName + "," + c.OfferShortCode + "," + c.Type.String() + "," + c.Source.String() + "," + c.Status.String() + "," + c.SendAt.String() + "," + c.CreatedAt.String()
 }
 
 // NewCampaign ...
@@ -53,11 +64,22 @@ type Outbox struct {
 	Cost              int            `json:"cost"` // number of units used for this outbox
 	Status            OutboxStatus   `json:"status"`
 	StatusDescription string         `json:"statusDescription"`
+	ErrorDescription  string         `json:"errorDescription"`
 	CallbackURL       string         `json:"callbackURL"` // for outbox sent from API
 	Retries           int            `json:"retries" gorm:"default:0"`
 	CreatedAt         time.Time      `json:"createdAt"`
 	UpdatedAt         time.Time      `json:"updatedAt"`
 	DeletedAt         gorm.DeletedAt `json:"deletedAt"`
+}
+
+// CSVHeader ...
+func (o *Outbox) CSVHeader() string {
+	return "OrganizationID,CampaignID,SenderName,OfferCode,Recipient,Cost,Status,StatusDescription,ErrorDescription,CreatedAt,UpdatedAt"
+}
+
+// ToCsvString ...
+func (o *Outbox) ToCsvString() string {
+	return o.OrganizationID + "," + o.CampaignID + "," + o.SenderName + "," + o.OfferCode + "," + o.Recipient + "," + fmt.Sprintf("%d", o.Cost) + "," + o.Status.String() + "," + o.StatusDescription + "," + o.ErrorDescription + "," + o.CreatedAt.String() + "," + o.UpdatedAt.String()
 }
 
 // NewOutbox ...
