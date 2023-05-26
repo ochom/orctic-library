@@ -112,6 +112,7 @@ type Inbox struct {
 	LinkID    string         `json:"linkID"`
 	Mobile    string         `json:"mobile"`
 	Message   string         `json:"message"`
+	Response  string         `json:"response"`
 	Replied   bool           `json:"replied"`
 	CreatedAt time.Time      `json:"createdAt"`
 	UpdatedAt time.Time      `json:"updatedAt"`
