@@ -1,6 +1,7 @@
 package schedules
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 
@@ -101,4 +102,28 @@ func NewAPIOutbox(campaignID, senderName, message, recipient, callbackURL string
 	outbox := NewOutbox(campaignID, senderName, message, recipient)
 	outbox.CallbackURL = callbackURL
 	return outbox
+}
+
+// Inbox CP notification inbox
+type Inbox struct {
+	ID        string         `json:"id"`
+	RequestID string         `json:"requestID"`
+	OfferCode string         `json:"offerCode"`
+	LinkID    string         `json:"linkID"`
+	Mobile    string         `json:"mobile"`
+	Message   string         `json:"message"`
+	Replied   bool           `json:"replied"`
+	CreatedAt time.Time      `json:"createdAt"`
+	UpdatedAt time.Time      `json:"updatedAt"`
+	DeletedAt gorm.DeletedAt `json:"deletedAt"`
+}
+
+// Bytes ...
+func (i *Inbox) Bytes() []byte {
+	b, err := json.Marshal(i)
+	if err != nil {
+		panic(err)
+	}
+
+	return b
 }
