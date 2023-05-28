@@ -56,7 +56,7 @@ func NewCampaign(src CampaignSource, ct CampaignType, senderName, offerCode stri
 type Outbox struct {
 	ID                string         `json:"id"`
 	OrganizationID    string         `json:"organizationID"`
-	CampaignID        string         `json:"campaignID"`
+	CampaignID        string         `json:"campaignID" gorm:"index:idx_campaign_status"`
 	LinkID            string         `json:"linkID"`     // for reply outbox
 	SenderName        string         `json:"senderName"` // should be the actual sender name/id
 	OfferCode         string         `json:"offerCode"`  // this is the offer code
@@ -64,7 +64,7 @@ type Outbox struct {
 	Message           string         `json:"message"`
 	Cost              int            `json:"cost"` // number of units used for this outbox
 	Status            OutboxStatus   `json:"status"`
-	StatusDescription string         `json:"statusDescription"`
+	StatusDescription string         `json:"statusDescription" gorm:"index:idx_campaign_status"`
 	ErrorDescription  string         `json:"errorDescription"`
 	CallbackURL       string         `json:"callbackURL"` // for outbox sent from API
 	Retries           int            `json:"retries" gorm:"default:0"`
