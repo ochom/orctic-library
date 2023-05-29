@@ -2,7 +2,6 @@ package schedules
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 
 	"github.com/ochom/orctic-library/utils"
@@ -27,16 +26,6 @@ type Campaign struct {
 	CreatedAt      time.Time      `json:"createdAt"`
 	CreatedByID    string         `json:"createdByID"`
 	IsPersonalized bool           `json:"isPersonalized"` // this tag determines if the messages will be sent in batches or individually
-}
-
-// CSVHeader ...
-func (c *Campaign) CSVHeader() string {
-	return "ID,OrganizationID,SenderName,OfferCode,OfferName,OfferShortCode,Type,Source,Status,SendAt,CreatedAt"
-}
-
-// ToCsvString ...
-func (c *Campaign) ToCsvString() string {
-	return c.ID + "," + c.OrganizationID + "," + c.SenderName + "," + c.OfferCode + "," + c.OfferName + "," + c.OfferShortCode + "," + c.Type.String() + "," + c.Source.String() + "," + c.Status.String() + "," + c.SendAt.String() + "," + c.CreatedAt.String()
 }
 
 // NewCampaign ...
@@ -71,16 +60,6 @@ type Outbox struct {
 	CreatedAt         time.Time      `json:"createdAt"`
 	UpdatedAt         time.Time      `json:"updatedAt"`
 	DeletedAt         gorm.DeletedAt `json:"deletedAt"`
-}
-
-// CSVHeader ...
-func (o *Outbox) CSVHeader() string {
-	return "OrganizationID,CampaignID,SenderName,OfferCode,Recipient,Cost,Status,StatusDescription,ErrorDescription,CreatedAt,UpdatedAt"
-}
-
-// ToCsvString ...
-func (o *Outbox) ToCsvString() string {
-	return o.OrganizationID + "," + o.CampaignID + "," + o.SenderName + "," + o.OfferCode + "," + o.Recipient + "," + fmt.Sprintf("%d", o.Cost) + "," + o.Status.String() + "," + o.StatusDescription + "," + o.ErrorDescription + "," + o.CreatedAt.String() + "," + o.UpdatedAt.String()
 }
 
 // NewOutbox ...
