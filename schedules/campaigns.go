@@ -1,7 +1,6 @@
 package schedules
 
 import (
-	"encoding/json"
 	"time"
 
 	"github.com/ochom/orctic-library/utils"
@@ -25,7 +24,7 @@ type Campaign struct {
 	SendAt         time.Time      `json:"sendAt"`
 	CreatedAt      time.Time      `json:"createdAt"`
 	CreatedByID    string         `json:"createdByID"`
-	IsPersonalized bool           `json:"isPersonalized"` // this tag determines if the messages will be sent in batches or individually
+	Target         *int64         `json:"target"` // this is the number of recipients for this campaign
 }
 
 // NewCampaign ...
@@ -96,14 +95,4 @@ type Inbox struct {
 	CreatedAt time.Time      `json:"createdAt"`
 	UpdatedAt time.Time      `json:"updatedAt"`
 	DeletedAt gorm.DeletedAt `json:"deletedAt"`
-}
-
-// Bytes ...
-func (i *Inbox) Bytes() []byte {
-	b, err := json.Marshal(i)
-	if err != nil {
-		panic(err)
-	}
-
-	return b
 }
