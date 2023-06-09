@@ -24,7 +24,7 @@ type Campaign struct {
 	SendAt         time.Time      `json:"sendAt"`
 	CreatedAt      time.Time      `json:"createdAt"`
 	CreatedByID    string         `json:"createdByID"`
-	Target         *int64         `json:"target"` // this is the number of recipients for this campaign
+	Target         int64          `json:"target"` // this is the number of recipients for this campaign
 }
 
 // NewCampaign ...
