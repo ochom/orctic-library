@@ -51,6 +51,7 @@ type Outbox struct {
 	Recipient         string         `json:"recipient"`
 	Message           string         `json:"message"`
 	Cost              int            `json:"cost"` // number of units used for this outbox
+	Source            CampaignSource `json:"source"`
 	Status            OutboxStatus   `json:"status"`
 	StatusDescription string         `json:"statusDescription"`
 	ErrorDescription  string         `json:"errorDescription"`
