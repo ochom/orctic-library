@@ -4,12 +4,12 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ochom/orctic-library/utils"
+	"github.com/ochom/gutils/helpers"
 	"github.com/ochom/quickmq/clients"
 )
 
 var (
-	quickURL = utils.GetEnv("QUICKMQ_URL", "ws://localhost:3456")
+	quickURL = helpers.GetEnv("QUICKMQ_URL", "ws://localhost:3456")
 )
 
 // quickMQ is a  quickmq implementation of the Queue interface

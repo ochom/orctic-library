@@ -4,11 +4,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ochom/orctic-library/utils"
+	"github.com/ochom/gutils/helpers"
 	"github.com/ochom/pubsub"
 )
 
-var rabbitURL = utils.GetEnv("RABBIT_URL", "amqp://guest:guest@localhost:5672/")
+var rabbitURL = helpers.GetEnv("RABBIT_URL", "amqp://guest:guest@localhost:5672/")
 
 // rabbitMQ is a rabbitmq implementation of the Pubsub interface
 type rabbitMQ struct {

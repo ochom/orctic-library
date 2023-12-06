@@ -3,7 +3,7 @@ package queues
 import (
 	"time"
 
-	"github.com/ochom/orctic-library/utils"
+	"github.com/ochom/gutils/helpers"
 )
 
 // Queue ...
@@ -19,4 +19,4 @@ type Queue interface {
 }
 
 // queuePrefix is the prefix for all queues
-var queuePrefix = utils.GetEnv("QUEUE_PREFIX", "dev")
+var queuePrefix = helpers.GetEnv("QUEUE_PREFIX", "dev")

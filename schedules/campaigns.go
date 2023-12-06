@@ -3,42 +3,9 @@ package schedules
 import (
 	"time"
 
-	"github.com/ochom/orctic-library/utils"
 	"github.com/ochom/uuid"
 	"gorm.io/gorm"
 )
-
-// Campaign ...
-type Campaign struct {
-	ID             string         `json:"id"`
-	OrganizationID string         `json:"organizationID"`
-	ContactGroupID string         `json:"contactGroupID"` // for messages targeted to a contact group
-	SenderName     string         `json:"senderName"`     // this is the actual sender name/id
-	OfferCode      string         `json:"offerCode"`      // this is the offer code
-	OfferName      string         `json:"offerName"`      // this is the offer name
-	OfferShortCode string         `json:"offerShortCode"` // this is the offer shortcode
-	Type           CampaignType   `json:"type"`
-	Source         CampaignSource `json:"source"`
-	Status         OutboxStatus   `json:"status"`
-	Message        string         `json:"message"` // this is the template to be used for premium sms
-	SendAt         time.Time      `json:"sendAt"`
-	CreatedAt      time.Time      `json:"createdAt"`
-	CreatedByID    string         `json:"createdByID"`
-	Target         int64          `json:"target"` // this is the number of recipients for this campaign
-}
-
-// NewCampaign ...
-func NewCampaign(src CampaignSource, ct CampaignType, senderName, offerCode string, sendAt time.Time) *Campaign {
-	return &Campaign{
-		ID:         uuid.NewString(),
-		SenderName: senderName,
-		OfferCode:  offerCode,
-		Type:       ct,
-		SendAt:     sendAt,
-		Source:     src,
-		Status:     PendingOutbox,
-	}
-}
 
 // Outbox ...
 type Outbox struct {
@@ -70,17 +37,26 @@ func NewOutbox(campaignID, senderName, message, recipient string) *Outbox {
 		SenderName:        senderName,
 		Recipient:         recipient,
 		Message:           message,
-		Cost:              utils.GetMessageCost(message),
+		Cost:              getMessageCost(message),
 		Status:            PendingOutbox,
 		StatusDescription: "Outbox is pending to be sent",
 	}
 }
 
-// NewAPIOutbox ...
-func NewAPIOutbox(campaignID, senderName, message, recipient, callbackURL string) *Outbox {
-	outbox := NewOutbox(campaignID, senderName, message, recipient)
-	outbox.CallbackURL = callbackURL
-	return outbox
+// getMessageCost ...
+func getMessageCost(message string) int {
+	pageSize := 160
+	messageLength := len(message)
+
+	if messageLength <= pageSize {
+		return 1
+	}
+
+	if messageLength%pageSize == 0 {
+		return messageLength / pageSize
+	}
+
+	return (messageLength / pageSize) + 1
 }
 
 // Inbox CP notification inbox
